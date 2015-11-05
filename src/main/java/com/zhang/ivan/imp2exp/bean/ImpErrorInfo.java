@@ -1,26 +1,26 @@
 package com.zhang.ivan.imp2exp.bean;
 
-public abstract class ImpErrorInfo {
+public  class ImpErrorInfo {
 
-	private long id;
+	private int id;
 
-	private long rowIndex;
+	private int rowIndex;
 
 	private String errorInfo;
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public long getRowIndex() {
+	public int getRowIndex() {
 		return rowIndex;
 	}
 
-	public void setRowIndex(long rowIndex) {
+	public void setRowIndex(int rowIndex) {
 		this.rowIndex = rowIndex;
 	}
 
