@@ -8,6 +8,7 @@ public class DataCheckBean {
 	private int[] checkColumn;
 	private String operName;
 	private List<Object> paramvalue;
+	private String edsc;
 
 	public String getCheckClass() {
 		return checkClass;
@@ -39,6 +40,14 @@ public class DataCheckBean {
 
 	public void setParamvalue(List<Object> paramvalue) {
 		this.paramvalue = paramvalue;
+	}
+
+	public String getEdsc() {
+		return edsc;
+	}
+
+	public void setEdsc(String edsc) {
+		this.edsc = edsc;
 	}
 
 }
