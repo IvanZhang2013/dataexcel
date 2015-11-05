@@ -49,4 +49,8 @@ target/classes/META-INF/maven/com.zhang.ivan.imp2exp/dataexcel/pom.xml
 target/classes/META-INF/maven/com.zhang.ivan.imp2exp/dataexcel/pom.properties
 target/classes/com/zhang/ivan/imp2exp/check/text.xml
 /target/
-/bin/
+/.gitattributes
+/.gitignore
+/pom.xml
+/README.md
+/核心类结构.mdj
