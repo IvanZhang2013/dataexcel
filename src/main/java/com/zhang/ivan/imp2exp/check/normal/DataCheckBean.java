@@ -50,4 +50,5 @@ public class DataCheckBean {
 		this.edsc = edsc;
 	}
 
+
 }
