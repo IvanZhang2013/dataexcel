@@ -1,6 +1,6 @@
 package com.zhang.ivan.imp2exp.common;
 
-public class JxlsException extends Exception {
+public class DataExcelException extends Exception {
 
 	private static final long serialVersionUID = 3023760178200813800L;
 
@@ -8,7 +8,7 @@ public class JxlsException extends Exception {
 
 	private Exception exception;
 
-	public JxlsException(String message) {
+	public DataExcelException(String message) {
 		super();
 		this.message = message;
 		this.exception = new Exception();
