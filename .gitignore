@@ -48,5 +48,3 @@ target/classes/META-INF/maven/com.zhang.ivan.imp2exp/dataexcel/pom.xml
 *.MF
 target/classes/META-INF/maven/com.zhang.ivan.imp2exp/dataexcel/pom.properties
 target/classes/com/zhang/ivan/imp2exp/check/text.xml
-/target/
-/bin/
