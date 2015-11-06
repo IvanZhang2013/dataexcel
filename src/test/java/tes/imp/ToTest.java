@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.sql.DataSource;
+
+import com.zhang.ivan.imp2exp.BaseDataConnection;
 import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
 import com.zhang.ivan.imp2exp.check.IExcelCheck;
@@ -18,6 +21,7 @@ import com.zhang.ivan.imp2exp.util.PoiExcelType;
 import tes.exp.Employee;
 
 public class ToTest implements IExcelCheck {
+	private  static DataSource dataSource;
 
 	@SuppressWarnings("unused")
 	private static BatchImportInfoVO generateSampleEmployeeData() throws ParseException {
@@ -38,10 +42,9 @@ public class ToTest implements IExcelCheck {
 		exp.setTempNm("nested_command_template.xls");
 		exp.setTempPath("F:/Program Files (x86)/workspaces-ds/App/target/test-classes/excel/");
 		exp.setUploadFilePath("F:\\Program Files (x86)\\workspaces-ds\\App\\src\\test\\java\\excel\\workbookout.xls");
-
 		ExcelAppContext appContext = new ExcelAppContext();
+		appContext.setBaseDataConnection(new BaseDataConnection());
 		IExcelCheck excelCheck = new ToTest();
-
 		ExcelCheckContext e = new ExcelCheckContext();
 		ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
 	}
