@@ -5,10 +5,27 @@ package com.zhang.ivan.imp2exp.bean;
  *
  * class desc:批量导入信息VO类
  */
-public class BatchImportInfoVO extends BaseBatchImp {
+public class BatchImportInfoVO {
 	private String tableName;// 表名
+	private String tabledesc;
 	private TableFieldInfoVO[] fieldInfo;// 字段信息
-	private int otherFieldLength; // 其它字段个数
+	private ColumnFieldInfoVO[] otherfieldInfo;// 其他字段信息
+
+	public String getTabledesc() {
+		return tabledesc;
+	}
+
+	public void setTabledesc(String tabledesc) {
+		this.tabledesc = tabledesc;
+	}
+
+	public ColumnFieldInfoVO[] getOtherfieldInfo() {
+		return otherfieldInfo;
+	}
+
+	public void setOtherfieldInfo(ColumnFieldInfoVO[] otherfieldInfo) {
+		this.otherfieldInfo = otherfieldInfo;
+	}
 
 	public String getTableName() {
 		return tableName;
@@ -26,11 +43,4 @@ public class BatchImportInfoVO extends BaseBatchImp {
 		this.fieldInfo = fieldInfo;
 	}
 
-	public int getOtherFieldLength() {
-		return otherFieldLength;
-	}
-
-	public void setOtherFieldLength(int otherFieldLength) {
-		this.otherFieldLength = otherFieldLength;
-	}
 }
