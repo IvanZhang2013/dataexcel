@@ -17,6 +17,14 @@ public abstract class AbstractExcelCheck {
 	 */
 	protected List<ImpErrorInfo> errorinfo;
 
+	/**
+	 * 主要应用于责任链进行传递的时候进行数据的对象复制
+	 */
+	public void copyObjectParam(AbstractExcelCheck abstractExcelCheck) {
+		this.errorinfo = abstractExcelCheck.getErrorinfo();
+		this.excelAppContext = abstractExcelCheck.getExcelAppContext();
+	}
+
 	public List<ImpErrorInfo> getErrorinfo() {
 		return errorinfo;
 	}
