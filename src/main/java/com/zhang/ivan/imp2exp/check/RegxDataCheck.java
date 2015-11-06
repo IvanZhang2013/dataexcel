@@ -45,7 +45,6 @@ public class RegxDataCheck extends LocalExcelCheck implements IExcelCheck {
 						errorinfo = new ArrayList<ImpErrorInfo>();
 					}
 					ImpErrorInfo impErrorInfo = new ImpErrorInfo();
-					impErrorInfo.setId(j);
 					impErrorInfo.setRowIndex(q);
 					impErrorInfo.setErrorInfo(dataCheckBean.getEdsc());
 					errorinfo.add(impErrorInfo);
