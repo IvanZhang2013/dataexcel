@@ -10,8 +10,6 @@ public class ColumnFieldInfoVO {
 	private String columnName;
 	// 字段中文描述（必填）
 	private String fieldsDesc;
-	// 字段中文描述（必填） -->主要是为了应对生成策略生成数据的时候产生异常
-	private String exceptionDesc;
 	// 取值方法
 	private IExcuteValue iExcuteValue;
 
@@ -29,14 +27,6 @@ public class ColumnFieldInfoVO {
 
 	public void setFieldsDesc(String fieldsDesc) {
 		this.fieldsDesc = fieldsDesc;
-	}
-
-	public String getExceptionDesc() {
-		return exceptionDesc;
-	}
-
-	public void setExceptionDesc(String exceptionDesc) {
-		this.exceptionDesc = exceptionDesc;
 	}
 
 	public IExcuteValue getiExcuteValue() {
