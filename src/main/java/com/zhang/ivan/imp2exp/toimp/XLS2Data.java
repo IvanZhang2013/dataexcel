@@ -18,18 +18,18 @@ import com.zhang.ivan.imp2exp.util.ExcelReader;
  * 生成xlsx文件的工具类
  */
 public class XLS2Data extends AbstractExcel2Data implements ToImp {
-	
+
 	private Workbook xlsWorkBook;
 	private ExcelAppContext excelAppContext;
 
 	public static Logger logger = LoggerFactory.getLogger(XLS2Data.class);
 
-	public void excute(ImpExcelTemplate imp,ExcelCheckContext e) throws Exception {
+	public void excute(ImpExcelTemplate imp, ExcelCheckContext e) throws Exception {
 		String uploadFile = imp.getUploadFilePath();
 		xlsWorkBook = new HSSFWorkbook(new FileInputStream(uploadFile));
 		ExcelReader excelReader = new ExcelReader(xlsWorkBook);
-		DyadicArray<String> dyadicArray =excelReader.readExcel();
-		 
+		DyadicArray<String> dyadicArray = excelReader.readExcel();
+		e.setDyadicArray(dyadicArray);
 	}
 
 	public void setExcelAppContext(ExcelAppContext excelAppContext) {
