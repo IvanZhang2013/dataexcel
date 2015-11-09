@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import javax.sql.DataSource;
-
 import com.zhang.ivan.imp2exp.BaseDataConnection;
 import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
@@ -18,10 +16,10 @@ import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 import com.zhang.ivan.imp2exp.toimp.ToImpFactory;
 import com.zhang.ivan.imp2exp.util.PoiExcelType;
 
+import tes.DataSourceBoneCp;
 import tes.exp.Employee;
 
 public class ToTest implements IExcelCheck {
-	private  static DataSource dataSource;
 
 	@SuppressWarnings("unused")
 	private static BatchImportInfoVO generateSampleEmployeeData() throws ParseException {
@@ -43,21 +41,23 @@ public class ToTest implements IExcelCheck {
 		exp.setTempPath("F:/Program Files (x86)/workspaces-ds/App/target/test-classes/excel/");
 		exp.setUploadFilePath("F:\\Program Files (x86)\\workspaces-ds\\App\\src\\test\\java\\excel\\workbookout.xls");
 		ExcelAppContext appContext = new ExcelAppContext();
-		appContext.setBaseDataConnection(new BaseDataConnection());
-		IExcelCheck excelCheck = new ToTest();
+
+		BaseDataConnection baseDataConnection = new BaseDataConnection();
+		baseDataConnection.setDataSource(DataSourceBoneCp.getDataSource());
+		appContext.setBaseDataConnection(baseDataConnection);
+
 		ExcelCheckContext e = new ExcelCheckContext();
+
 		ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public List<ImpErrorInfo> excute(DataCheckBean dataCheckBean) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
