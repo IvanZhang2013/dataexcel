@@ -9,7 +9,6 @@ public class StringDataType extends AbstractDataType implements DataType<String>
 		StringBuffer stringBuffer = new StringBuffer();
 
 		boolean tem = false;
-
 		Pattern pattern = Pattern.compile(getRegx());
 		Matcher matcher = pattern.matcher(getValue());
 

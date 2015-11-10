@@ -28,6 +28,7 @@ public class XLSX2Data extends AbstractExcel2Data implements ToImp {
 		xlsxWorkBook = new XSSFWorkbook(new FileInputStream(uploadFile));
 		ExcelReader excelReader = new ExcelReader(xlsxWorkBook);
 		excelReader.readExcel();
+		
 	}
 
 	public void setExcelAppContext(ExcelAppContext excelAppContext) {

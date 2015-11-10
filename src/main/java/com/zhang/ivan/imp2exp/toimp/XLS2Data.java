@@ -29,6 +29,10 @@ public class XLS2Data extends AbstractExcel2Data implements ToImp {
 		ExcelReader excelReader = new ExcelReader(xlsWorkBook);
 		DyadicArray<String> dyadicArray = excelReader.readExcel();
 		e.setDyadicArray(dyadicArray);
+
+		String sql = ExcelImpOper.initSql(excelAppContext);
+		boolean d = ExcelImpOper.toDataBase(sql, e, excelAppContext);
+
 	}
 
 	public void setExcelAppContext(ExcelAppContext excelAppContext) {

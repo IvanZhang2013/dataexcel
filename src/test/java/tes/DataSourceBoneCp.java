@@ -10,10 +10,11 @@ public class DataSourceBoneCp {
 	static {
 		BoneCPDataSource ds = new BoneCPDataSource();
 
-		ds.setDriverClass("com.mysql.jdbc.Driver");
-		ds.setJdbcUrl("jdbc:mysql://192.168.4.123:3306/cheng");
-		ds.setUsername("root");
-		ds.setPassword("");
+		ds.setDriverClass("oracle.jdbc.driver.OracleDriver");
+		ds.setJdbcUrl(
+				"jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.4.129)(PORT = 1521)))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = newhrdev)))");
+		ds.setUsername("newhr");
+		ds.setPassword("newhr");
 		ds.setAcquireIncrement(1);
 		ds.setAcquireRetryDelay(10000);
 		ds.setIdleConnectionTestPeriod(100);

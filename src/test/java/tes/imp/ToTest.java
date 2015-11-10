@@ -8,7 +8,9 @@ import java.util.Locale;
 
 import com.zhang.ivan.imp2exp.BaseDataConnection;
 import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
+import com.zhang.ivan.imp2exp.bean.ExcelConfig;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
+import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
 import com.zhang.ivan.imp2exp.check.IExcelCheck;
 import com.zhang.ivan.imp2exp.check.normal.DataCheckBean;
 import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
@@ -37,16 +39,78 @@ public class ToTest implements IExcelCheck {
 	public static void main(String[] args) throws Exception {
 
 		Imp exp = new Imp();
-		exp.setTempNm("nested_command_template.xls");
-		exp.setTempPath("F:/Program Files (x86)/workspaces-ds/App/target/test-classes/excel/");
-		exp.setUploadFilePath("F:\\Program Files (x86)\\workspaces-ds\\App\\src\\test\\java\\excel\\workbookout.xls");
+		exp.setTempNm("workbook.xls");
+		exp.setTempPath("F:\\GitHub\\dataexcel\\workbook.xls");
+		exp.setUploadFilePath("F:\\GitHub\\dataexcel\\workbook.xls");
 		ExcelAppContext appContext = new ExcelAppContext();
+		BatchImportInfoVO batchImportInfoVO = new BatchImportInfoVO();
+
+		TableFieldInfoVO tableFieldInfoVO1 = new TableFieldInfoVO();
+
+		tableFieldInfoVO1.setDefaultValue("000");
+		tableFieldInfoVO1.setFieldsDesc("测试内容");
+		tableFieldInfoVO1.setFieldsName("NAMESPACE");
+
+		TableFieldInfoVO tableFieldInfoVO2 = new TableFieldInfoVO();
+
+		tableFieldInfoVO2.setDefaultValue("000");
+		tableFieldInfoVO2.setFieldsDesc("测试内容");
+		tableFieldInfoVO2.setFieldsName("NAMEPASS");
+
+		TableFieldInfoVO tableFieldInfoVO3 = new TableFieldInfoVO();
+
+		tableFieldInfoVO3.setDefaultValue("000");
+		tableFieldInfoVO3.setFieldsDesc("测试内容");
+		tableFieldInfoVO3.setFieldsName("SPACE");
+
+		TableFieldInfoVO tableFieldInfoVO4 = new TableFieldInfoVO();
+
+		tableFieldInfoVO4.setDefaultValue("000");
+		tableFieldInfoVO4.setFieldsDesc("测试内容");
+		tableFieldInfoVO4.setFieldsName("PASS");
+
+		TableFieldInfoVO[] tableFieldInfoVOs = new TableFieldInfoVO[4];
+
+		tableFieldInfoVOs[0] = tableFieldInfoVO1;
+		tableFieldInfoVOs[1] = tableFieldInfoVO2;
+		tableFieldInfoVOs[2] = tableFieldInfoVO3;
+		tableFieldInfoVOs[3] = tableFieldInfoVO4;
+
+		batchImportInfoVO.setFieldInfo(tableFieldInfoVOs);
+		batchImportInfoVO.setOtherfieldInfo(null);
+		batchImportInfoVO.setTabledesc("TEST测试");
+		batchImportInfoVO.setTableName("IVAN_EXCEL");
+
+		appContext.setBatchImportInfoVO(batchImportInfoVO);
+
+		ExcelConfig excelConfig = new ExcelConfig();
+		excelConfig.setAll(true);
+		excelConfig.setIsStartSheet(1);
+		excelConfig.setOneSheet(false);
+		excelConfig.setRow(10000);
+		excelConfig.setSizeKB(5000);
+
+		appContext.setExcelConfig(excelConfig);
 
 		BaseDataConnection baseDataConnection = new BaseDataConnection();
 		baseDataConnection.setDataSource(DataSourceBoneCp.getDataSource());
 		appContext.setBaseDataConnection(baseDataConnection);
 
 		ExcelCheckContext e = new ExcelCheckContext();
+
+		DataCheckBean dataCheckBean = new DataCheckBean();
+
+		dataCheckBean.setCheckClass("com.zhang.ivan.imp2exp.check.SingleDataCheck");
+		int[] s = new  int[2];
+		s[0] = 1;
+		s[1] = 2;
+		dataCheckBean.setCheckColumn(s);
+		dataCheckBean.setEdsc("输入错误");
+		dataCheckBean.setParamvalue(null);
+
+		List list = new ArrayList<>();
+		list.add(dataCheckBean);
+		e.setCheckbeanlist(list);
 
 		ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
 	}
