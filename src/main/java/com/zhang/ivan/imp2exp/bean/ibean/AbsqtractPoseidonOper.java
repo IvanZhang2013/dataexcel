@@ -4,15 +4,13 @@ import java.util.List;
 
 import com.zhang.ivan.imp2exp.BaseDataConnection;
 
-public class SqlExcelValue extends AbstracExcelValue implements IExcuteValue {
+public abstract class AbsqtractPoseidonOper extends AbstracExcelValue implements IExcuteValue {
 
 	private List<Integer> intlist;
 	private List<String> otherList;
-	private String sql;
 	private BaseDataConnection baseDataConnection;
 
 	public String excute() {
-		
 		return null;
 	}
 
@@ -22,14 +20,6 @@ public class SqlExcelValue extends AbstracExcelValue implements IExcuteValue {
 
 	public void setIntlist(List<Integer> intlist) {
 		this.intlist = intlist;
-	}
-
-	public String getSql() {
-		return sql;
-	}
-
-	public void setSql(String sql) {
-		this.sql = sql;
 	}
 
 	public BaseDataConnection getBaseDataConnection() {
