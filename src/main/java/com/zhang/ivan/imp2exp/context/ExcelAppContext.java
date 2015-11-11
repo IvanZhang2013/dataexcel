@@ -3,6 +3,8 @@ package com.zhang.ivan.imp2exp.context;
 import com.zhang.ivan.imp2exp.BaseDataConnection;
 import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
 import com.zhang.ivan.imp2exp.bean.ExcelConfig;
+import com.zhang.ivan.imp2exp.product.ProcBean;
+import com.zhang.ivan.imp2exp.util.DyadicArray;
 
 /**
  * 
@@ -13,6 +15,8 @@ public class ExcelAppContext implements IExcelAppContext {
 	protected BaseDataConnection baseDataConnection;
 	protected BatchImportInfoVO batchImportInfoVO;
 	protected ExcelConfig excelConfig;
+	protected DyadicArray<String> dataArray;
+	protected ProcBean procBean;
 
 	public BatchImportInfoVO getBatchImportInfoVO() {
 		return batchImportInfoVO;
@@ -48,6 +52,22 @@ public class ExcelAppContext implements IExcelAppContext {
 
 	public void setBaseDataConnection(BaseDataConnection baseDataConnection) {
 		this.baseDataConnection = baseDataConnection;
+	}
+
+	public DyadicArray<String> getDataArray() {
+		return dataArray;
+	}
+
+	public void setDataArray(DyadicArray<String> dataArray) {
+		this.dataArray = dataArray;
+	}
+
+	public ProcBean getProcBean() {
+		return procBean;
+	}
+
+	public void setProcBean(ProcBean procBean) {
+		this.procBean = procBean;
 	}
 
 }
