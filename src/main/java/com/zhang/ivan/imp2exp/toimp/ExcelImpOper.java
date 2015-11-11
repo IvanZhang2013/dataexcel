@@ -53,14 +53,19 @@ public class ExcelImpOper {
 				if (cf == null) {
 					throw new DataExcelException("解析导入语句失败");
 				}
-				if (i == (fields.length - 1)) {
+
+				if (i == 0) {
 					stringBufferstart.append(cf.getColumnName());
-					stringBufferend.append("?");
+					stringBufferend.append(" , ?");
+				} else if (i > 0 && i == (fields.length - 1)) {
+					stringBufferstart.append(cf.getColumnName()).append(", ");
+					stringBufferend.append("? ");
 				} else {
 					stringBufferstart.append(cf.getColumnName()).append(", ");
 					stringBufferend.append("? ,");
 
 				}
+
 			}
 		}
 		stringBufferstart.append(" ) VALUES (").append(stringBufferend.toString()).append(")");
