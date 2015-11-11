@@ -40,8 +40,8 @@ public class ToTest implements IExcelCheck {
 
 		Imp exp = new Imp();
 		exp.setTempNm("workbook.xls");
-		exp.setTempPath("F:\\GitHub\\dataexcel\\workbook.xls");
-		exp.setUploadFilePath("F:\\GitHub\\dataexcel\\workbook.xls");
+		exp.setTempPath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
+		exp.setUploadFilePath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
 		ExcelAppContext appContext = new ExcelAppContext();
 		BatchImportInfoVO batchImportInfoVO = new BatchImportInfoVO();
 
