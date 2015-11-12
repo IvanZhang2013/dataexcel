@@ -94,7 +94,11 @@ public class DyadicArray<E> {
 		int i = 0;
 
 		for (i = 0; i < newRowSize; i++) {
-			elementData[i] = Arrays.copyOf(elementData[i], newColumnSize);
+			if (elementData[i] == null) {
+				elementData[i] = new Object[newColumnSize];
+			} else {
+				elementData[i] = Arrays.copyOf(elementData[i], newColumnSize);
+			}
 		}
 
 	}
@@ -114,13 +118,11 @@ public class DyadicArray<E> {
 		return elementData(rowSize, columnSize);
 	}
 
+	/**
+	 * 检查数组是否越界
+	 */
 	private void rangeCheck(int rowSize, int columnSize) {
 		if (rowIndex <= rowSize || columnIndex <= columnSize)
-			throw new IndexOutOfBoundsException("数组越界==>ROWSIZE=" + rowSize + ":COLUMNSIZE=" + columnSize);
-	}
-
-	private void rangeCheckForAdd(int rowSize, int columnSize) {
-		if (rowIndex <= rowSize || columnIndex <= columnSize || rowSize < 0 || columnSize < 0)
 			throw new IndexOutOfBoundsException("数组越界==>ROWSIZE=" + rowSize + ":COLUMNSIZE=" + columnSize);
 	}
 
@@ -142,19 +144,11 @@ public class DyadicArray<E> {
 		return oldValue;
 	}
 
-	public void add(int rowSize, int columnSize, E element) {
-		rangeCheckForAdd(rowSize, columnSize);
-		ensureCapacityInternal(rowSize + 1, columnSize + 1);
-		System.arraycopy(elementData[rowSize], columnSize, elementData[rowSize], columnSize + 1,
-				columnIndex - columnSize);
-		elementData[rowSize][columnSize] = element;
-	}
-
 	@SuppressWarnings("unchecked")
 	public E[] getRow(int rowIndexValue) throws Exception {
 		if (elementData == null) {
 			throw new Exception("数组为空！");
-		}else{
+		} else {
 			return (E[]) elementData[rowIndexValue];
 		}
 	}
@@ -169,11 +163,23 @@ public class DyadicArray<E> {
 		for (int i = 0; i < rowIndex; i++) {
 			if (elementData[i] == null) {
 				throw new Exception("选择列数组不完整！");
-			}else{
+			} else {
 				columnArray[i] = (E) elementData[i][columnIndexValue];
 			}
 		}
 		return columnArray;
 
 	}
+
+	public void resetInit(int rowSize, int columnSize) throws Exception {
+		if (rowSize > 0 && rowSize > 0) {
+			ensureCapacityInternal(rowSize, columnSize);
+			rowIndex = rowSize;
+			columnIndex = columnSize;
+		} else {
+			throw new Exception("不能初始化负数或者0的二维数组！");
+		}
+
+	}
+
 }
