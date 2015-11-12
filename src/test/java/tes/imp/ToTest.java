@@ -80,12 +80,7 @@ public class ToTest implements IExcelCheck {
 		batchImportInfoVO.setFieldInfo(tableFieldInfoVOs);
 		ColumnFieldInfoVO[] ps = new ColumnFieldInfoVO[1];
 
-		ColumnFieldInfoVO columnFieldInfoVO = new ColumnFieldInfoVO();
-		columnFieldInfoVO.setClassName("test");
-		columnFieldInfoVO.setColumnName("test");
-		columnFieldInfoVO.setFieldsDesc("数据结构类");
-		ps[0] = columnFieldInfoVO;
-		batchImportInfoVO.setOtherfieldInfo(ps);
+		
 		batchImportInfoVO.setTabledesc("TEST测试");
 		batchImportInfoVO.setTableName("IVAN_EXCEL");
 

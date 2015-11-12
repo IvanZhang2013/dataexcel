@@ -18,7 +18,6 @@ public class ExcelConfig {
 	 * 单Sheet页还是多Sheet也导入 默认情况下是单页导入
 	 */
 	protected boolean isOneSheet;
-
 	/**
 	 * 从第几个Sheet页开始读取数据 默认情况下从第一个Sheet页开始 即从0开始
 	 */
