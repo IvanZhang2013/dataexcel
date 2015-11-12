@@ -10,32 +10,20 @@ import com.zhang.ivan.imp2exp.util.DyadicArray;
  * 
  * 导入文件上下文， 需要存储倒入文件的配置， 需要将数据源传递进去 进行数据的提交修改和数据的数据库校验
  */
-public class ExcelAppContext implements IExcelAppContext {
+public class ExcelAppContext {
 
 	protected BaseDataConnection baseDataConnection;
 	protected BatchImportInfoVO batchImportInfoVO;
 	protected ExcelConfig excelConfig;
 	protected DyadicArray<String> dataArray;
 	protected ProcBean procBean;
-	
+
 	public BatchImportInfoVO getBatchImportInfoVO() {
 		return batchImportInfoVO;
 	}
 
 	public void setBatchImportInfoVO(BatchImportInfoVO batchImportInfoVO) {
 		this.batchImportInfoVO = batchImportInfoVO;
-	}
-
-	/**
-	 * 进行导入信息文件的初始化功能，
-	 */
-	@SuppressWarnings("unused")
-	private void init() {
-		initExcelAppContext();
-	}
-
-	public ExcelAppContext initExcelAppContext() {
-		return null;
 	}
 
 	public ExcelConfig getExcelConfig() {
