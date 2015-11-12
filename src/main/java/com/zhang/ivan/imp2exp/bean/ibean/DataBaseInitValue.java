@@ -1,4 +1,4 @@
-package com.zhang.ivan.imp2exp.check;
+package com.zhang.ivan.imp2exp.bean.ibean;
 
 import com.zhang.ivan.imp2exp.BaseDataConnection;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
@@ -7,7 +7,7 @@ import com.zhang.ivan.imp2exp.util.DyadicArray;
  * 进行数据库校验的抽象类存储属性
  */
 
-public abstract class DataBaseResult implements IExcelCheck {
+public abstract class DataBaseInitValue implements IExcuteInitColumnValue {
 
 	protected BaseDataConnection baseDataConnection;
 
