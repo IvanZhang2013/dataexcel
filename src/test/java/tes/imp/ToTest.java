@@ -124,12 +124,9 @@ public class ToTest implements IExcelCheck {
 	}
 
 	@Override
-	public void init() {
-
-	}
-
-	@Override
-	public List<ImpErrorInfo> excute(DataCheckBean dataCheckBean) throws Exception {
+	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
+			ExcelAppContext excelAppContext) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

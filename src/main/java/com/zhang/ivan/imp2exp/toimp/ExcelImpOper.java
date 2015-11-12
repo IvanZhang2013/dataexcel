@@ -88,7 +88,9 @@ public class ExcelImpOper {
 			} else {
 				throw new DataExcelException("公示转化错误！");
 			}
-			List<ImpErrorInfo> list1 = excelCheck.excute(checkBean);
+			
+			List<ImpErrorInfo> list1=null;
+			list1 = excelCheck.excute(list1, checkBean, excelAppContext);
 		}
 		return false;
 	}

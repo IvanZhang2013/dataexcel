@@ -8,17 +8,19 @@ import java.util.regex.Pattern;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
 import com.zhang.ivan.imp2exp.check.normal.DataCheckBean;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
+import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 
 /**
  * 对于单列的正则进行校验，int【】队列中存储队列位置 参数list中存储对应int中的正则表达式
  */
-public class RegxDataCheck extends LocalExcelCheck implements IExcelCheck {
+public class RegxDataCheck extends LocalBaseResult implements IExcelCheck {
 
 	public void init() {
 
 	}
 
-	public List<ImpErrorInfo> excute(DataCheckBean dataCheckBean) throws Exception {
+	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
+			ExcelAppContext excelAppContext) throws Exception {
 		int columsize = getDataResult().getColumnSize();
 
 		int[] params = dataCheckBean.getCheckColumn();
@@ -41,18 +43,18 @@ public class RegxDataCheck extends LocalExcelCheck implements IExcelCheck {
 
 				if (!this.regx((String) dataCheckBean.getParamvalue().get(j), column[q])) {
 
-					if (errorinfo == null) {
-						errorinfo = new ArrayList<ImpErrorInfo>();
+					if (list == null) {
+						list = new ArrayList<ImpErrorInfo>();
 					}
 					ImpErrorInfo impErrorInfo = new ImpErrorInfo();
 					impErrorInfo.setRowIndex(q);
 					impErrorInfo.setErrorInfo(dataCheckBean.getEdsc());
-					errorinfo.add(impErrorInfo);
+					list.add(impErrorInfo);
 
 				}
 			}
 		}
-		return errorinfo;
+		return list;
 	}
 
 	private boolean regx(String regx, String value) throws DataExcelException {
