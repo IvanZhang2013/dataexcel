@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<excelapp version="1.1.0" desc="人员信息录入模版">
+	<table name="root1" desc="人员信息表之基础报表" Sheet="0,1,3">
+		<!-- 定义数据列 -->
+		<File>
+			<ss id="数据库对应列的名字" name="数据库对应列的中文名字" index="对应列的位置从0开始计算"></ss>
+			<otherFile></otherFile>
+		</File>
+		<!-- 定义数据检查和数据逻辑 -->
+		<initValue>
+			<check></check>
+			<sum></sum>
+		</initValue>
+		<!--定义存储过程 -->
+		<procdure>
+
+		</procdure>
+	</table>
+</excelapp>

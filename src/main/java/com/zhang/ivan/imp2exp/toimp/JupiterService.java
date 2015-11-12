@@ -1,6 +1,5 @@
 package com.zhang.ivan.imp2exp.toimp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
@@ -9,8 +8,6 @@ import com.zhang.ivan.imp2exp.bean.ColumnFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
 import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ibean.IExcuteInitColumnValue;
-import com.zhang.ivan.imp2exp.check.IExcelCheck;
-import com.zhang.ivan.imp2exp.check.normal.DataCheckBean;
 import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
@@ -29,7 +26,9 @@ public class JupiterService {
 		DyadicArray<String> dyadicArray = excelReader.readExcel();
 		ColumnFieldInfoVO[] columnFieldInfoVOs = excelAppContext.getBatchImportInfoVO().getOtherfieldInfo();
 		TableFieldInfoVO[] tableFieldInfoVOs = excelAppContext.getBatchImportInfoVO().getFieldInfo();
-
+		if (columnFieldInfoVOs == null || tableFieldInfoVOs == null) {
+			throw new DataExcelException("模版定义异常");
+		}
 		int newColumnSize = tableFieldInfoVOs.length + columnFieldInfoVOs.length;
 		dyadicArray.resetInit(dyadicArray.getRowSize(), newColumnSize);
 		excelCheckContext.setDyadicArray(dyadicArray);
