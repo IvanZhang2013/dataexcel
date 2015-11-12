@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.zhang.ivan.imp2exp.bean.ColumnFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
+import com.zhang.ivan.imp2exp.bean.ibean.DataBaseInitValue;
 import com.zhang.ivan.imp2exp.bean.ibean.IExcuteInitColumnValue;
+import com.zhang.ivan.imp2exp.bean.ibean.LocalBaseInitValue;
 import com.zhang.ivan.imp2exp.check.DataBaseResult;
 import com.zhang.ivan.imp2exp.check.IExcelCheck;
 import com.zhang.ivan.imp2exp.check.LocalBaseResult;
@@ -69,8 +71,8 @@ public class MinervaService {
 	 * 
 	 * @throws Exception
 	 */
-	public static void minervaLanceService(ExcelCheckContext excelCheckContext,
-			ExcelAppContext excelAppContext) throws Exception {
+	public static void minervaLanceService(ExcelCheckContext excelCheckContext, ExcelAppContext excelAppContext)
+			throws Exception {
 		/**
 		 * 数据校验逻辑 循环首先进行基础的校验 数据格式和数据行数进行校验 椒盐采用反射的机制 校验之后产生错误信息机型数据返回
 		 * 数据校验使用什么设计模式还不明白
@@ -78,12 +80,12 @@ public class MinervaService {
 		ColumnFieldInfoVO[] columnFieldInfoVOs = excelAppContext.getBatchImportInfoVO().getOtherfieldInfo();
 
 		if (columnFieldInfoVOs == null) {
-			return ;
+			return;
 		}
-		
+
 		for (int i = 0; i < columnFieldInfoVOs.length; i++) {
 			ColumnFieldInfoVO columnFieldInfoVO = columnFieldInfoVOs[i];
-			 
+
 			if (columnFieldInfoVO == null) {
 				throw new Exception("校验方法类为空无法进行校验");
 			} else {
@@ -93,11 +95,11 @@ public class MinervaService {
 				if (obj instanceof IExcelCheck) {
 
 					if (obj instanceof DataBaseResult) {
-						((DataBaseResult) obj).setBaseDataConnection(excelAppContext.getBaseDataConnection());
-						((DataBaseResult) obj).setDataResult(excelAppContext.getDataArray());
+						((DataBaseInitValue) obj).setBaseDataConnection(excelAppContext.getBaseDataConnection());
+						((DataBaseInitValue) obj).setDataResult(excelAppContext.getDataArray());
 						iExcuteInitColumnValue = (IExcuteInitColumnValue) obj;
 					} else if (obj instanceof LocalBaseResult) {
-						((LocalBaseResult) obj).setDataResult(excelAppContext.getDataArray());
+						((LocalBaseInitValue) obj).setDataResult(excelAppContext.getDataArray());
 						iExcuteInitColumnValue = (IExcuteInitColumnValue) obj;
 					} else {
 						throw new Exception("检验数据配置设置错误！");

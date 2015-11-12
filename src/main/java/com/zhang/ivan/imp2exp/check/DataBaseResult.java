@@ -7,7 +7,7 @@ import com.zhang.ivan.imp2exp.util.DyadicArray;
  * 进行数据库校验的抽象类存储属性
  */
 
-public abstract class DataBaseResult  {
+public abstract class DataBaseResult implements IExcelCheck {
 
 	protected BaseDataConnection baseDataConnection;
 
