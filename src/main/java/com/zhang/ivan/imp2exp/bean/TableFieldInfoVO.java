@@ -7,6 +7,7 @@ public class TableFieldInfoVO {
 	private String fieldsName;// 字段名（必填）
 	private String fieldsDesc;// 字段中文描述（必填）
 	private String defaultValue;// 如果可以为空，为空时的默认值
+	private String className;
 
 	/**
 	 * 设置默认值
@@ -40,5 +41,12 @@ public class TableFieldInfoVO {
 		this.defaultValue = defaultValue;
 	}
 
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
 
 }
