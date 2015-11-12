@@ -17,7 +17,7 @@ public class ExcelAppContext implements IExcelAppContext {
 	protected ExcelConfig excelConfig;
 	protected DyadicArray<String> dataArray;
 	protected ProcBean procBean;
-
+	
 	public BatchImportInfoVO getBatchImportInfoVO() {
 		return batchImportInfoVO;
 	}

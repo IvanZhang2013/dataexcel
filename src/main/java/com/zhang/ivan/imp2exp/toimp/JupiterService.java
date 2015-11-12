@@ -38,44 +38,11 @@ public class JupiterService {
 		 * 上面已经将读取到的数据进行过扩充<br/>
 		 * 调用数据格式化接口 进行数据的格式化
 		 */
-		for (int i = 0; i < columnFieldInfoVOs.length; i++) {
-			Class<?> cl = Class.forName(columnFieldInfoVOs[i].getClassName());
-			Object obj = cl.newInstance();
-
-			IExcuteInitColumnValue columnValue = null;
-			if (obj instanceof IExcuteInitColumnValue) {
-				columnValue = (IExcuteInitColumnValue) obj;
-			} else {
-				throw new Exception("数据格式化方法失败！");
-			}
-			excelAppContext.setDataArray(columnValue.excute(dyadicArray, excelAppContext.getBaseDataConnection()));
-		}
-
+		MinervaService.minervaLanceService(excelCheckContext, excelAppContext);
 		/**
 		 * 进行数据的校验方法
 		 */
-		List<ImpErrorInfo> impErrorInfos = new ArrayList<ImpErrorInfo>();
-		List<DataCheckBean> list = excelCheckContext.getCheckbeanlist();
-		for (int i = 0; i < list.size(); i++) {
-			DataCheckBean checkBean = list.get(i);
-
-			if (checkBean == null) {
-				throw new Exception("校验方法类为空无法进行校验");
-			} else {
-				Class<?> cl = Class.forName(checkBean.getCheckClass());
-				Object obj = cl.newInstance();
-
-				IExcelCheck iExcelCheck = null;
-				if (obj instanceof IExcelCheck) {
-					throw new Exception("检验数据配置设置错误！");
-				} else {
-					iExcelCheck = (IExcelCheck) obj;
-				}
-				impErrorInfos.addAll(iExcelCheck.excute(checkBean));
-			}
-
-		}
-
+		List<ImpErrorInfo> impErrorInfos = MinervaService.minervaMaceService(excelCheckContext, excelAppContext);
 		/**
 		 * 主要进行业务逻辑的算法处理
 		 * 
@@ -89,7 +56,7 @@ public class JupiterService {
 			} else {
 				throw new Exception("数据格式化方法失败！");
 			}
-			excelAppContext.setDataArray(columnValue.excute(dyadicArray, excelAppContext.getBaseDataConnection()));
+			excelAppContext.setDataArray(columnValue.excute());
 		}
 
 		String sql;
