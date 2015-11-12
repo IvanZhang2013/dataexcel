@@ -53,14 +53,19 @@ public class ExcelImpOper {
 				if (cf == null) {
 					throw new DataExcelException("解析导入语句失败");
 				}
-				if (i == (fields.length - 1)) {
+
+				if (i == 0) {
 					stringBufferstart.append(cf.getColumnName());
-					stringBufferend.append("?");
+					stringBufferend.append(" , ?");
+				} else if (i > 0 && i == (fields.length - 1)) {
+					stringBufferstart.append(cf.getColumnName()).append(", ");
+					stringBufferend.append("? ");
 				} else {
 					stringBufferstart.append(cf.getColumnName()).append(", ");
 					stringBufferend.append("? ,");
 
 				}
+
 			}
 		}
 		stringBufferstart.append(" ) VALUES (").append(stringBufferend.toString()).append(")");
@@ -79,7 +84,7 @@ public class ExcelImpOper {
 			Class<?> cl = Class.forName(checkBean.getCheckClass());
 			IExcelCheck excelCheck = null;
 			if (cl.newInstance() instanceof IExcelCheck) {
-				IExcelCheck toImp = (IExcelCheck) cl.newInstance();
+				excelCheck = (IExcelCheck) cl.newInstance();
 			} else {
 				throw new DataExcelException("公示转化错误！");
 			}
@@ -94,10 +99,11 @@ public class ExcelImpOper {
 		Connection connection = null;
 		PreparedStatement ps = null;
 		DyadicArray<String> dyadicArray = excelCheckContext.getDyadicArray();
+
 		if (dyadicArray == null) {
 			throw new DataExcelException("数据导入读取数据为NULL！");
-
 		}
+
 		try {
 			connection = excelAppContext.getBaseDataConnection().getDataSource().getConnection();
 			ps = connection.prepareStatement(sql);

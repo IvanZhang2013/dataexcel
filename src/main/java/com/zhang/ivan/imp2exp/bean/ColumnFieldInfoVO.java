@@ -1,6 +1,6 @@
 package com.zhang.ivan.imp2exp.bean;
 
-import com.zhang.ivan.imp2exp.bean.ibean.IExcuteValue;
+import com.zhang.ivan.imp2exp.bean.ibean.IExcuteInitColumnValue;
 
 /**
  * 再导入文件中不存在的列的信息
@@ -11,7 +11,7 @@ public class ColumnFieldInfoVO {
 	// 字段中文描述（必填）
 	private String fieldsDesc;
 	// 取值方法
-	private IExcuteValue iExcuteValue;
+	private String className;
 
 	public String getColumnName() {
 		return columnName;
@@ -29,12 +29,12 @@ public class ColumnFieldInfoVO {
 		this.fieldsDesc = fieldsDesc;
 	}
 
-	public IExcuteValue getiExcuteValue() {
-		return iExcuteValue;
+	public String getClassName() {
+		return className;
 	}
 
-	public void setiExcuteValue(IExcuteValue iExcuteValue) {
-		this.iExcuteValue = iExcuteValue;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 }

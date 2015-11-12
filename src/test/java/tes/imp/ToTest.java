@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import com.zhang.ivan.imp2exp.BaseDataConnection;
 import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
+import com.zhang.ivan.imp2exp.bean.ColumnFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ExcelConfig;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
 import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
@@ -77,7 +78,14 @@ public class ToTest implements IExcelCheck {
 		tableFieldInfoVOs[3] = tableFieldInfoVO4;
 
 		batchImportInfoVO.setFieldInfo(tableFieldInfoVOs);
-		batchImportInfoVO.setOtherfieldInfo(null);
+		ColumnFieldInfoVO[] ps = new ColumnFieldInfoVO[1];
+
+		ColumnFieldInfoVO columnFieldInfoVO = new ColumnFieldInfoVO();
+		columnFieldInfoVO.setClassName("test");
+		columnFieldInfoVO.setColumnName("test");
+		columnFieldInfoVO.setFieldsDesc("数据结构类");
+		ps[0] = columnFieldInfoVO;
+		batchImportInfoVO.setOtherfieldInfo(ps);
 		batchImportInfoVO.setTabledesc("TEST测试");
 		batchImportInfoVO.setTableName("IVAN_EXCEL");
 
@@ -101,7 +109,7 @@ public class ToTest implements IExcelCheck {
 		DataCheckBean dataCheckBean = new DataCheckBean();
 
 		dataCheckBean.setCheckClass("com.zhang.ivan.imp2exp.check.SingleDataCheck");
-		int[] s = new  int[2];
+		int[] s = new int[2];
 		s[0] = 1;
 		s[1] = 2;
 		dataCheckBean.setCheckColumn(s);
