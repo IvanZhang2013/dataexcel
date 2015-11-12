@@ -1,4 +1,4 @@
-package com.zhang.ivan.imp2exp.util.xml;
+package com.zhang.ivan.imp2exp.file.xml;
 
 public interface ImpExcelCanstant {
 	//需要进行整理过程中使用的抽象类

@@ -8,6 +8,7 @@ public class TableFieldInfoVO {
 	private String fieldsDesc;// 字段中文描述（必填）
 	private String defaultValue;// 如果可以为空，为空时的默认值
 	private String className;
+	private String colIndex;
 
 	/**
 	 * 设置默认值
@@ -47,6 +48,14 @@ public class TableFieldInfoVO {
 
 	public void setClassName(String className) {
 		this.className = className;
+	}
+
+	public String getColIndex() {
+		return colIndex;
+	}
+
+	public void setColIndex(String colIndex) {
+		this.colIndex = colIndex;
 	}
 
 }
