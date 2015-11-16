@@ -53,7 +53,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>apache-collections</groupId>
+			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 			<version>3.1</version>
 		</dependency>
@@ -66,8 +66,8 @@
 
 		<dependency>
 			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.3.0</version>
+			<artifactId>ojdbc14</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -80,6 +80,11 @@
 			<version>2.6</version>
 		</dependency>
 
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1.1</version>
+		</dependency>
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>

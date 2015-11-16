@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<excelapp version="1.1.0" desc="人员信息录入模版"  modelpatch="模版存放路径"   modelname="模版名称"  modeltype=“模版类型”>
+<root version="1.1.0" desc="人员信息录入模版"  modelpatch="模版存放路径"   modelname="模版名称"  modeltype="模版类型">
 	<table name="root1" desc="人员信息表之基础报表" Sheet="0,1,3">
 		<!-- 定义数据列 -->
 		<File>
@@ -16,4 +16,23 @@
 
 		</procdure>
 	</table>
-</excelapp>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</root>
