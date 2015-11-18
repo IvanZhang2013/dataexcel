@@ -1,4 +1,4 @@
-package com.zhang.ivan.imp2exp.product;
+/*package com.zhang.ivan.imp2exp.product;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
@@ -52,3 +52,4 @@ public class ProcUtils {
 	}
 
 }
+*/

@@ -16,6 +16,7 @@ import com.zhang.ivan.imp2exp.bean.ColumnFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.FileldInfoVO;
 import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
+import com.zhang.ivan.imp2exp.product.ProcBean;
 import com.zhang.ivan.imp2exp.util.regex.RegexChk;
 
 public class XMLUtils {
@@ -32,26 +33,12 @@ public class XMLUtils {
 
 	public static Map<String, BatchImportInfoVO> doc2Table(Document document) throws Exception {
 
-		Element root = document.getRootElement();
-		System.out.println(document.selectNodes("//root/column"));
-		List<Node> list = root.selectNodes("//table");
-
-		for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
-			Element object = (Element) iterator.next();
-			System.out.println(object.getName() + ">>>>" + object.attribute("status"));
-		}
-
-		for (Iterator it = root.elementIterator(); it.hasNext();) {
-			Element element = (Element) it.next();
-			System.out.println(element.getName());
-		}
-
 		return null;
 
 	}
 
 	@SuppressWarnings({ "unchecked", "null" })
-	public static Map<String, FileldInfoVO> doc2Produrce(Document document) throws Exception {
+	public static Map<String, FileldInfoVO> doc2Fileld(Document document) throws Exception {
 		Map<String, FileldInfoVO> map = new HashMap<String, FileldInfoVO>();
 		List<Node> list = document.selectNodes("//root/column");
 		if (list != null && list.size() > 0) {
@@ -103,44 +90,43 @@ public class XMLUtils {
 
 	}
 
-	public static Map<String, BatchImportInfoVO> doc2File(Document document) throws Exception {
-
-		Element root = document.getRootElement();
-		System.out.println(document.selectNodes("//root/column"));
-		List<Node> list = root.selectNodes("//table");
-
-		for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
-			Element object = (Element) iterator.next();
-			System.out.println(object.getName() + ">>>>" + object.attribute("status"));
-		}
-
-		for (Iterator it = root.elementIterator(); it.hasNext();) {
-			Element element = (Element) it.next();
-			System.out.println(element.getName());
-		}
+	public static Map<String, BatchImportInfoVO> doc2Check(Document document) throws Exception {
 
 		return null;
 
 	}
 
-	public static Map<String, BatchImportInfoVO> doc2Check(Document document) throws Exception {
-
-		Element root = document.getRootElement();
-		System.out.println(document.selectNodes("//root/column"));
-		List<Node> list = root.selectNodes("//table");
-
-		for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
-			Element object = (Element) iterator.next();
-			System.out.println(object.getName() + ">>>>" + object.attribute("status"));
-		}
-
-		for (Iterator it = root.elementIterator(); it.hasNext();) {
-			Element element = (Element) it.next();
-			System.out.println(element.getName());
-		}
+	public static Map<String, BatchImportInfoVO> doc2Count(Document document) throws Exception {
 
 		return null;
 
+	}
+
+	@SuppressWarnings({ "unchecked", "null" })
+	public static Map<String, ProcBean> doc2procdure(Document document) throws Exception {
+
+		Map<String, ProcBean> map = new HashMap<String, ProcBean>();
+		List<Node> list = document.selectNodes("//root/procdure");
+		if (list != null && list.size() > 0) {
+			Node node = null;
+			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
+				String procId = node.valueOf("@id");
+				if (procId == null || procId.trim().equals("")) {
+					throw new DataExcelException("配置文档内容出错，procdure 节点Id属性必须定义");
+				}
+				String procText = node.getText();
+				ProcBean procBean = new ProcBean();
+				if (procText != null && procText.trim().length() > 0) {
+					procBean.setProcText(procText);
+				} else {
+					throw new DataExcelException("配置文档内容出错，procdure必须定义存储过程内容");
+				}
+				map.put(procId, procBean);
+			}
+			return map;
+		} else {
+			return map;
+		}
 	}
 
 }

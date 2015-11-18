@@ -10,9 +10,6 @@ import org.slf4j.LoggerFactory;
 import com.zhang.ivan.imp2exp.bean.ImpExcelTemplate;
 import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
-import com.zhang.ivan.imp2exp.product.ProcUtils;
-import com.zhang.ivan.imp2exp.util.DyadicArray;
-import com.zhang.ivan.imp2exp.util.ExcelReader;
 
 /**
  * 读取xls文件的工具类
