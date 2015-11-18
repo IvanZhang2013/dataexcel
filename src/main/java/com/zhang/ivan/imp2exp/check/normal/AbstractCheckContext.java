@@ -1,21 +1,22 @@
 package com.zhang.ivan.imp2exp.check.normal;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zhang.ivan.imp2exp.util.DyadicArray;
 
 public abstract class AbstractCheckContext {
 
-	protected List<DataCheckBean> checkbeanlist;
+	protected Map<String, List<DataCheckBean>> checkMap;
 
 	private DyadicArray<String> dyadicArray;
 
-	public List<DataCheckBean> getCheckbeanlist() {
-		return checkbeanlist;
+	public Map<String, List<DataCheckBean>> getCheckMap() {
+		return checkMap;
 	}
 
-	public void setCheckbeanlist(List<DataCheckBean> checkbeanlist) {
-		this.checkbeanlist = checkbeanlist;
+	public void setCheckMap(Map<String, List<DataCheckBean>> checkMap) {
+		this.checkMap = checkMap;
 	}
 
 	public DyadicArray<String> getDyadicArray() {

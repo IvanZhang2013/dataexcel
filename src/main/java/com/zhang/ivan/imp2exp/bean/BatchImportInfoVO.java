@@ -1,46 +1,60 @@
 package com.zhang.ivan.imp2exp.bean;
 
+import java.util.Map;
+
+import com.zhang.ivan.imp2exp.product.ProcBean;
+
 /**
  * author: kin wong
  *
  * class desc:批量导入信息VO类
  */
 public class BatchImportInfoVO {
-	private String tableName;// 表名
-	private String tabledesc;
-	private TableFieldInfoVO[] fieldInfo;// 字段信息
-	private ColumnFieldInfoVO[] otherfieldInfo;// 其他字段信息
 
-	public String getTabledesc() {
-		return tabledesc;
+	private String insertSql;
+	private int[] index;
+	private String[] fileStr;
+	private Map<String, FileldInfoVO> fileMap;
+	private ProcBean procBean;
+
+	public Map<String, FileldInfoVO> getFileMap() {
+		return fileMap;
 	}
 
-	public void setTabledesc(String tabledesc) {
-		this.tabledesc = tabledesc;
+	public void setFileMap(Map<String, FileldInfoVO> fileMap) {
+		this.fileMap = fileMap;
 	}
 
-	public ColumnFieldInfoVO[] getOtherfieldInfo() {
-		return otherfieldInfo;
+	public ProcBean getProcBean() {
+		return procBean;
 	}
 
-	public void setOtherfieldInfo(ColumnFieldInfoVO[] otherfieldInfo) {
-		this.otherfieldInfo = otherfieldInfo;
+	public void setProcBean(ProcBean procBean) {
+		this.procBean = procBean;
 	}
 
-	public String getTableName() {
-		return tableName;
+	public int[] getIndex() {
+		return index;
 	}
 
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setIndex(int[] index) {
+		this.index = index;
 	}
 
-	public TableFieldInfoVO[] getFieldInfo() {
-		return fieldInfo;
+	public String[] getFileStr() {
+		return fileStr;
 	}
 
-	public void setFieldInfo(TableFieldInfoVO[] fieldInfo) {
-		this.fieldInfo = fieldInfo;
+	public void setFileStr(String[] fileStr) {
+		this.fileStr = fileStr;
+	}
+
+	public String getInsertSql() {
+		return insertSql;
+	}
+
+	public void setInsertSql(String insertSql) {
+		this.insertSql = insertSql;
 	}
 
 }

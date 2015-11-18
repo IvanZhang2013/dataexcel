@@ -1,44 +1,60 @@
 package com.zhang.ivan.imp2exp.check.normal;
 
-import java.util.List;
-
 public class DataCheckBean {
 
-	private String checkClass;
-	private int[] checkColumn;
-	private List<Object> paramvalue;
-	private String edsc;
+	private String type;
+	private int[] index;
+	private String regexText;
+	private String sqlText;
+	private String desc;
+	private String className;
 
-	public String getCheckClass() {
-		return checkClass;
+	public String getClassName() {
+		return className;
 	}
 
-	public void setCheckClass(String checkClass) {
-		this.checkClass = checkClass;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
-	public int[] getCheckColumn() {
-		return checkColumn;
+	public String getType() {
+		return type;
 	}
 
-	public void setCheckColumn(int[] checkColumn) {
-		this.checkColumn = checkColumn;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public List<Object> getParamvalue() {
-		return paramvalue;
+	public int[] getIndex() {
+		return index;
 	}
 
-	public void setParamvalue(List<Object> paramvalue) {
-		this.paramvalue = paramvalue;
+	public void setIndex(int[] index) {
+		this.index = index;
 	}
 
-	public String getEdsc() {
-		return edsc;
+	public String getRegexText() {
+		return regexText;
 	}
 
-	public void setEdsc(String edsc) {
-		this.edsc = edsc;
+	public void setRegexText(String regexText) {
+		this.regexText = regexText;
+	}
+
+	public String getSqlText() {
+		return sqlText;
+	}
+
+	public void setSqlText(String sqlText) {
+		this.sqlText = sqlText;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 }
