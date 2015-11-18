@@ -32,6 +32,7 @@ public class Jaca {
 		}
 		System.out.println("".trim()==null);
 		System.out.println("   ".trim()+"99");
-
+String df ="dsfd,fdsf,sfd,sfds,fd,sf,dsfds,";
+System.out.println(df.split(",").length);
 	}
 }

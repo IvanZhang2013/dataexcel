@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.zhang.ivan.imp2exp.BaseDataConnection;
 import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
 import com.zhang.ivan.imp2exp.bean.ColumnFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ExcelConfig;
@@ -18,6 +17,7 @@ import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 import com.zhang.ivan.imp2exp.toimp.ToImpFactory;
 import com.zhang.ivan.imp2exp.util.PoiExcelType;
+import com.zhang.ivan.imp2exp.util.database.BaseDataConnection;
 
 import tes.DataSourceBoneCp;
 import tes.exp.Employee;
@@ -75,7 +75,7 @@ public class ToTest implements IExcelCheck {
 		batchImportInfoVO.setTabledesc("TEST测试");
 		batchImportInfoVO.setTableName("IVAN_EXCEL");
 
-		appContext.setBatchImportInfoVO(batchImportInfoVO);
+		//appContext.setBatchImportInfoVO(batchImportInfoVO);
 
 		ExcelConfig excelConfig = new ExcelConfig();
 		excelConfig.setAll(true);
@@ -94,13 +94,7 @@ public class ToTest implements IExcelCheck {
 
 		DataCheckBean dataCheckBean = new DataCheckBean();
 
-		dataCheckBean.setCheckClass("com.zhang.ivan.imp2exp.check.SingleDataCheck");
-		int[] s = new int[2];
-		s[0] = 1;
-		s[1] = 2;
-		dataCheckBean.setCheckColumn(s);
-		dataCheckBean.setEdsc("输入错误");
-		dataCheckBean.setParamvalue(null);
+
 
 		List list = new ArrayList<>();
 		list.add(dataCheckBean);

@@ -1,10 +1,13 @@
 package com.zhang.ivan.imp2exp.context;
 
-import com.zhang.ivan.imp2exp.BaseDataConnection;
+import java.util.List;
+import java.util.Map;
+
 import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
 import com.zhang.ivan.imp2exp.bean.ExcelConfig;
 import com.zhang.ivan.imp2exp.product.ProcBean;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
+import com.zhang.ivan.imp2exp.util.database.BaseDataConnection;
 
 /**
  * 
@@ -13,17 +16,17 @@ import com.zhang.ivan.imp2exp.util.DyadicArray;
 public class ExcelAppContext {
 
 	protected BaseDataConnection baseDataConnection;
-	protected BatchImportInfoVO batchImportInfoVO;
+	protected Map<String, BatchImportInfoVO> map;
 	protected ExcelConfig excelConfig;
 	protected DyadicArray<String> dataArray;
 	protected ProcBean procBean;
 
-	public BatchImportInfoVO getBatchImportInfoVO() {
-		return batchImportInfoVO;
+	public Map<String, BatchImportInfoVO> getMap() {
+		return map;
 	}
 
-	public void setBatchImportInfoVO(BatchImportInfoVO batchImportInfoVO) {
-		this.batchImportInfoVO = batchImportInfoVO;
+	public void setMap(Map<String, BatchImportInfoVO> map) {
+		this.map = map;
 	}
 
 	public ExcelConfig getExcelConfig() {

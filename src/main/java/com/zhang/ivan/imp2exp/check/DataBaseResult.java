@@ -1,7 +1,7 @@
 package com.zhang.ivan.imp2exp.check;
 
-import com.zhang.ivan.imp2exp.BaseDataConnection;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
+import com.zhang.ivan.imp2exp.util.database.BaseDataConnection;
 
 /**
  * 进行数据库校验的抽象类存储属性

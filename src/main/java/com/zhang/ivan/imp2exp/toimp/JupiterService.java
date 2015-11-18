@@ -11,7 +11,6 @@ import com.zhang.ivan.imp2exp.bean.ibean.IExcuteInitColumnValue;
 import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
-import com.zhang.ivan.imp2exp.product.ProcUtils;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
 import com.zhang.ivan.imp2exp.util.ExcelReader;
 
@@ -64,7 +63,7 @@ public class JupiterService {
 			ExcelImpOper.toDataBase(sql, excelCheckContext, excelAppContext);
 			if (excelAppContext.getProcBean() != null) {
 				// 需要执行存储过程
-				ProcUtils.operProc(excelAppContext.getProcBean());
+			//	ProcUtils.operProc(excelAppContext.getProcBean());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

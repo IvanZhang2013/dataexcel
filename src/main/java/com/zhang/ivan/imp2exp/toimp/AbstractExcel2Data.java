@@ -1,6 +1,6 @@
 package com.zhang.ivan.imp2exp.toimp;
 
-import com.zhang.ivan.imp2exp.BaseDataConnection;
+import com.zhang.ivan.imp2exp.util.database.BaseDataConnection;
 
 
 public abstract class AbstractExcel2Data {
