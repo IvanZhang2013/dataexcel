@@ -49,26 +49,18 @@ public class ToTest implements IExcelCheck {
 		TableFieldInfoVO tableFieldInfoVO1 = new TableFieldInfoVO();
 
 		tableFieldInfoVO1.setDefaultValue("000");
-		tableFieldInfoVO1.setFieldsDesc("测试内容");
-		tableFieldInfoVO1.setFieldsName("NAMESPACE");
 
 		TableFieldInfoVO tableFieldInfoVO2 = new TableFieldInfoVO();
 
 		tableFieldInfoVO2.setDefaultValue("000");
-		tableFieldInfoVO2.setFieldsDesc("测试内容");
-		tableFieldInfoVO2.setFieldsName("NAMEPASS");
 
 		TableFieldInfoVO tableFieldInfoVO3 = new TableFieldInfoVO();
 
 		tableFieldInfoVO3.setDefaultValue("000");
-		tableFieldInfoVO3.setFieldsDesc("测试内容");
-		tableFieldInfoVO3.setFieldsName("SPACE");
 
 		TableFieldInfoVO tableFieldInfoVO4 = new TableFieldInfoVO();
 
 		tableFieldInfoVO4.setDefaultValue("000");
-		tableFieldInfoVO4.setFieldsDesc("测试内容");
-		tableFieldInfoVO4.setFieldsName("PASS");
 
 		TableFieldInfoVO[] tableFieldInfoVOs = new TableFieldInfoVO[4];
 
@@ -80,7 +72,6 @@ public class ToTest implements IExcelCheck {
 		batchImportInfoVO.setFieldInfo(tableFieldInfoVOs);
 		ColumnFieldInfoVO[] ps = new ColumnFieldInfoVO[1];
 
-		
 		batchImportInfoVO.setTabledesc("TEST测试");
 		batchImportInfoVO.setTableName("IVAN_EXCEL");
 
