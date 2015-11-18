@@ -36,10 +36,10 @@ public class ExcelImpOper {
 			}
 
 			if (i == (fields.length - 1)) {
-				stringBufferstart.append(tf.getFieldsName());
+			//	stringBufferstart.append(tf.getFieldsName());
 				stringBufferend.append("?");
 			} else {
-				stringBufferstart.append(tf.getFieldsName()).append(", ");
+			//	stringBufferstart.append(tf.getFieldsName()).append(", ");
 				stringBufferend.append("? ,");
 			}
 
@@ -55,13 +55,13 @@ public class ExcelImpOper {
 				}
 
 				if (i == 0) {
-					stringBufferstart.append(cf.getColumnName());
+				//	stringBufferstart.append(cf.getColumnName());
 					stringBufferend.append(" , ?");
 				} else if (i > 0 && i == (fields.length - 1)) {
-					stringBufferstart.append(cf.getColumnName()).append(", ");
+				//	stringBufferstart.append(cf.getColumnName()).append(", ");
 					stringBufferend.append("? ");
 				} else {
-					stringBufferstart.append(cf.getColumnName()).append(", ");
+			//		stringBufferstart.append(cf.getColumnName()).append(", ");
 					stringBufferend.append("? ,");
 
 				}

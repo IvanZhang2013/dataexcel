@@ -5,6 +5,7 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
 public class Jaca {
@@ -16,12 +17,12 @@ public class Jaca {
 				.read(new File("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\src\\main\\resource\\xml\\text.xml"));
 
 		Element root = document.getRootElement();
-		System.out.println(document.selectNodes("//root/column"));
-		List list =root.selectNodes("//table");
+		System.out.println(document.selectNodes("//root/columeen").size());
+		List<Node> list =root.selectNodes("//table");
 		
 		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-			Element object = (Element) iterator.next();
-			System.out.println(object.getName()+">>>>"+object.attribute("status"));
+			Node object = (Node) iterator.next();
+			System.out.println(object.getText()+">>>>"+object.valueOf("@status"));
 		} 
 		
 		
@@ -29,6 +30,8 @@ public class Jaca {
 	        Element element = (Element) it.next();
 	        System.out.println(element.getName());
 		}
+		System.out.println("".trim()==null);
+		System.out.println("   ".trim()+"99");
 
 	}
 }

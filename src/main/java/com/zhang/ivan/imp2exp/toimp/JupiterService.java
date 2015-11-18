@@ -47,7 +47,7 @@ public class JupiterService {
 		 * 
 		 */
 		for (int i = 0; i < tableFieldInfoVOs.length; i++) {
-			Class<?> cl = Class.forName(tableFieldInfoVOs[i].getClassName());
+			Class<?> cl = Class.forName(tableFieldInfoVOs[i].getDefaultValue());
 			Object obj = cl.newInstance();
 			IExcuteInitColumnValue columnValue = null;
 			if (obj instanceof IExcuteInitColumnValue) {

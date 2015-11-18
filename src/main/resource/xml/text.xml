@@ -11,10 +11,10 @@
 		tableName(id,name,sts)values(?,?,?);
 	</table>
 	
-	<column id="q1" col="1" status="true" />
-	<column id="q2" col="2" status="true" />
-	<column id="q3" col="3" status="true" />
-	<column id="q4" status="false" class="com.ptf.otp.Dfc" />
+	<column id="q1" col="1" type="0" />
+	<column id="q2" col="2" type="0" />
+	<column id="q3" col="3" type="0" />
+	<column id="q4" type="0" class="com.ptf.otp.Dfc" />
 
 	<check  type=""            /><!-- 页面数据位置 -->
 	<check  type=""             /><!-- 和数据库对应唯一 -->
