@@ -15,6 +15,7 @@ import com.zhang.ivan.imp2exp.check.IExcelCheck;
 import com.zhang.ivan.imp2exp.check.normal.DataCheckBean;
 import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
+import com.zhang.ivan.imp2exp.file.xml.XMLUtils;
 import com.zhang.ivan.imp2exp.toimp.ToImpFactory;
 import com.zhang.ivan.imp2exp.util.PoiExcelType;
 import com.zhang.ivan.imp2exp.util.database.BaseDataConnection;
@@ -43,62 +44,11 @@ public class ToTest implements IExcelCheck {
 		exp.setTempNm("workbook.xls");
 		exp.setTempPath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
 		exp.setUploadFilePath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
+		ExcelConfig config  = new ExcelConfig();
+		XMLUtils.doc2ExcelAppContext(XMLUtils.xml2Document(config.getxPatch()));
 		ExcelAppContext appContext = new ExcelAppContext();
-		BatchImportInfoVO batchImportInfoVO = new BatchImportInfoVO();
-
-		TableFieldInfoVO tableFieldInfoVO1 = new TableFieldInfoVO();
-
-		tableFieldInfoVO1.setDefaultValue("000");
-
-		TableFieldInfoVO tableFieldInfoVO2 = new TableFieldInfoVO();
-
-		tableFieldInfoVO2.setDefaultValue("000");
-
-		TableFieldInfoVO tableFieldInfoVO3 = new TableFieldInfoVO();
-
-		tableFieldInfoVO3.setDefaultValue("000");
-
-		TableFieldInfoVO tableFieldInfoVO4 = new TableFieldInfoVO();
-
-		tableFieldInfoVO4.setDefaultValue("000");
-
-		TableFieldInfoVO[] tableFieldInfoVOs = new TableFieldInfoVO[4];
-
-		tableFieldInfoVOs[0] = tableFieldInfoVO1;
-		tableFieldInfoVOs[1] = tableFieldInfoVO2;
-		tableFieldInfoVOs[2] = tableFieldInfoVO3;
-		tableFieldInfoVOs[3] = tableFieldInfoVO4;
-
-		batchImportInfoVO.setFieldInfo(tableFieldInfoVOs);
-		ColumnFieldInfoVO[] ps = new ColumnFieldInfoVO[1];
-
-		batchImportInfoVO.setTabledesc("TEST测试");
-		batchImportInfoVO.setTableName("IVAN_EXCEL");
-
-		//appContext.setBatchImportInfoVO(batchImportInfoVO);
-
-		ExcelConfig excelConfig = new ExcelConfig();
-		excelConfig.setAll(true);
-		excelConfig.setIsStartSheet(1);
-		excelConfig.setOneSheet(false);
-		excelConfig.setRow(10000);
-		excelConfig.setSizeKB(5000);
-
-		appContext.setExcelConfig(excelConfig);
-
-		BaseDataConnection baseDataConnection = new BaseDataConnection();
-		baseDataConnection.setDataSource(DataSourceBoneCp.getDataSource());
-		appContext.setBaseDataConnection(baseDataConnection);
-
+		
 		ExcelCheckContext e = new ExcelCheckContext();
-
-		DataCheckBean dataCheckBean = new DataCheckBean();
-
-
-
-		List list = new ArrayList<>();
-		list.add(dataCheckBean);
-		e.setCheckbeanlist(list);
 
 		ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
 	}
