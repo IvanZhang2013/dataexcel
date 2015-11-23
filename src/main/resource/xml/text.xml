@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-
-
 	<column colId="q1" col="1" type="0" />
 	<column colId="q2" col="2" type="0" />
 	<column colId="q3" col="3" type="0" />
 	<column colId="q4" type="1" className="com.ptf.otp.Dfc" />
-
 	<!-- 导入几个sheet页 -->
 	<table tableId="t1" sheet="1,2" fileStr="q1,q2,q3,q4">
-		INSERT INTO IVAN_TEST (ID, NAME, AGEF, SQLPD)
+		INSERT INTO IVAN_TEST
+		(ID, NAME, AGEF, SQLPD)
 		VALUES (?, ?, ?, ?)
 	</table>
 	<!-- 存储过程必须为两个传出参数 错误信息， 成功1还是失败 以 0 1为标识 -->
 	<procdure tableId="">{call UOP(?,?,?,?,?)}</procdure>
-
 </root>

@@ -1,0 +1,58 @@
+Excel文件的导入：
+配置文件如下
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<column colId="q1" col="1" type="0" />
+	<column colId="q2" col="2" type="0" />
+	<column colId="q3" col="3" type="0" />
+	<column colId="q4" type="1" className="com.ptf.otp.Dfc" />
+	<!-- 导入几个sheet页 -->
+	<table tableId="t1" sheet="1,2" fileStr="q1,q2,q3,q4">
+		INSERT INTO IVAN_TEST
+		(ID, NAME, AGEF, SQLPD)
+		VALUES (?, ?, ?, ?)
+	</table>
+	<!-- 存储过程必须为两个传出参数 错误信息， 成功1还是失败 以 0 1为标识 -->
+	<procdure tableId="">{call UOP(?,?,?,?,?)}</procdure>
+</root>
+
+配置文件的内容   总标签为root
+导入的参数统一按照字符型接收  table中的sql进行字符的转换
+
+column标签定义列  colId定义列名    col定义列的位置    从1开始   type定义列的方式  0 为正常列   1为计算列   classname为计算列的算法  稍后会提供相应接口和继承类
+(计算列和校验相关所以先不要使用)
+
+table标签定义表    tableID  定义表的标示符     sheet定义   导入那几个sheet页的数据   fileStr定义的是标的列  同时   对应table标签中的SQL语句
+
+procdure  定义需要调用的存储过程  tableId定义关联的表   procdure中的内容为  存储过程的SQL  存储过程  必须有两个返回参数   
+
+未校验的内容
+<count tableId="表名" classname="统计方法" />
+<check tableId="type=" type="single" cols=""></check>
+check标签主要是进行数据的校验   当前还没有进行测试    所以不建议具体使用
+
+
+可以先写好配置文件  业务的校验可以稍后在处理   只需要增加校验Bean  和改动配置文件
+
+public static void main(String[] args) throws Exception {
+
+		Imp exp = new Imp();
+		//setTempNm是用来定义模版的名称  ，之后的模版计划是自动生成（当前没有）
+		exp.setTempNm("workbook.xls");
+		//setTempPath 用来定义模版的生成路径，之后的模版计划是自动生成（当前没有）
+		exp.setTempPath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
+		//定义上传后的文件路径
+		exp.setUploadFilePath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
+		
+		ExcelConfig config  = new ExcelConfig();
+		//xPatch必须被定义  主要是配置文件路径  之后的内容为固定格式
+		config.setxPatch("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\src\\main\\resource\\xml\\text.xml");
+		
+		ExcelAppContext appContext=XMLUtils.doc2ExcelAppContext(XMLUtils.xml2Document(config.getxPatch()));
+		BaseDataConnection baseDataConnection  = new BaseDataConnection();
+		baseDataConnection.setDataSource(new DataSourceBoneCp().getDataSource());
+		appContext.setBaseDataConnection(baseDataConnection);
+		ExcelCheckContext e = XMLUtils.doc2ExcelCheckContext(XMLUtils.xml2Document(config.getxPatch()));
+		ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
+		
+	}
