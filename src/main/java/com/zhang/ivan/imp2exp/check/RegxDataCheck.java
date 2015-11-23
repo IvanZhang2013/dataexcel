@@ -6,7 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
-import com.zhang.ivan.imp2exp.check.normal.DataCheckBean;
+import com.zhang.ivan.imp2exp.check.bean.DataCheckBean;
+import com.zhang.ivan.imp2exp.check.oper.IExcelCheck;
+import com.zhang.ivan.imp2exp.check.oper.LocalBaseResult;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 
@@ -15,48 +17,38 @@ import com.zhang.ivan.imp2exp.context.ExcelAppContext;
  */
 public class RegxDataCheck extends LocalBaseResult implements IExcelCheck {
 
-	public void init() {
-
-	}
-
 	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
 			ExcelAppContext excelAppContext) throws Exception {
-		int columsize = getDataResult().getColumnSize();
-
-		String[] params = dataCheckBean.getColIds();
-		               excelAppContext.getFileMap();
-
-		if (params == null) {
-			throw new DataExcelException("校验公式定义错误！");
+		int[] index = getColdIndex();
+		String regexStr = dataCheckBean.getRegexText();
+		if (!(index != null && index.length > 0)) {
+			throw new DataExcelException("校验公式colId定义错误！");
 		}
-		
-		
-		for (int i = 0; i < params.length; i++) {
-			if (params[i] >= columsize) {
-				throw new DataExcelException("校验公式定义错误！");
-			}
+
+		if (!(regexStr != null && regexStr.trim().length() > 0)) {
+			throw new DataExcelException("校验公式regexText定义错误！");
 		}
 
 		int j = 0;
 		String[] column = null;
-		for (int i = 0; i < params.length; i++) {
-			j = params[i];
+		for (int i = 0; i < index.length; i++) {
+			j = index[i];
 			column = getDataResult().getColumn(j);
 			for (int q = 0; q < column.length; q++) {
 
-				if (!this.regx((String) dataCheckBean.getParamvalue().get(j), column[q])) {
+				if (!this.regx(regexStr, column[q])) {
 
 					if (list == null) {
 						list = new ArrayList<ImpErrorInfo>();
 					}
 					ImpErrorInfo impErrorInfo = new ImpErrorInfo();
 					impErrorInfo.setRowIndex(q);
-					impErrorInfo.setErrorInfo(dataCheckBean.getEdsc());
+					impErrorInfo.setErrorInfo(dataCheckBean.getDesc());
 					list.add(impErrorInfo);
-
 				}
 			}
 		}
+
 		return list;
 	}
 

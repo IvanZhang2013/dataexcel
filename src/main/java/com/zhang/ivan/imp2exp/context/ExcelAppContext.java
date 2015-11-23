@@ -13,11 +13,26 @@ import com.zhang.ivan.imp2exp.util.database.BaseDataConnection;
  * 导入文件上下文， 需要存储倒入文件的配置， 需要将数据源传递进去 进行数据的提交修改和数据的数据库校验
  */
 public class ExcelAppContext {
-
+	
+	/**
+	 * 数据库连接池对象
+	 * */
 	protected BaseDataConnection baseDataConnection;
+	/**
+	 * 表对象
+	 * */
 	protected Map<String, BatchImportInfoVO> map;
+	/**
+	 * 列对象
+	 * */
 	protected Map<String, FileldInfoVO> fileMap;
+	/**
+	 * 配置对象
+	 * */
 	protected ExcelConfig excelConfig;
+	/**
+	 * 数据对象
+	 * */
 	protected Map<String, DyadicArray<String>> initArray;
 
 	public Map<String, BatchImportInfoVO> getMap() {
