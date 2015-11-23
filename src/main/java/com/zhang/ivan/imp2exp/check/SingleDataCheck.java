@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
-import com.zhang.ivan.imp2exp.check.normal.DataCheckBean;
+import com.zhang.ivan.imp2exp.check.bean.DataCheckBean;
+import com.zhang.ivan.imp2exp.check.oper.IExcelCheck;
+import com.zhang.ivan.imp2exp.check.oper.LocalBaseResult;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 
@@ -22,18 +24,11 @@ public class SingleDataCheck extends LocalBaseResult implements IExcelCheck {
 	 */
 	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
 			ExcelAppContext excelAppContext) throws Exception {
-
+		int[] params = getColdIndex();
 		int rowsize = getDataResult().getRowSize();
-		int columsize = getDataResult().getColumnSize();
-		int[] params = dataCheckBean.getCheckColumn();
 
 		if (params == null) {
-			throw new DataExcelException("校验公式定义错误！");
-		}
-		for (int i = 0; i < params.length; i++) {
-			if (params[i] >= columsize) {
-				throw new DataExcelException("校验公式定义错误！");
-			}
+			throw new DataExcelException("校验公式colids定义错误！");
 		}
 		String[] rows = null;
 		Set<String> set = new HashSet<String>();
@@ -55,7 +50,7 @@ public class SingleDataCheck extends LocalBaseResult implements IExcelCheck {
 				}
 				ImpErrorInfo impErrorInfo = new ImpErrorInfo();
 				impErrorInfo.setRowIndex(i);
-				impErrorInfo.setErrorInfo(dataCheckBean.getEdsc());
+				impErrorInfo.setErrorInfo(dataCheckBean.getDesc());
 				list.add(impErrorInfo);
 			}
 

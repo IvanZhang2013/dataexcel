@@ -1,4 +1,4 @@
-package com.zhang.ivan.imp2exp.check.normal;
+package com.zhang.ivan.imp2exp.check.bean;
 
 import java.util.List;
 import java.util.Map;

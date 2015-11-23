@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.zhang.ivan.imp2exp.bean.ImpExcelTemplate;
-import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
+import com.zhang.ivan.imp2exp.check.bean.ExcelCheckContext;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 
 /**
