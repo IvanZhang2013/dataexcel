@@ -1,15 +1,12 @@
 package com.zhang.ivan.imp2exp.toimp;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.zhang.ivan.imp2exp.bean.ColumnFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
-import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
-import com.zhang.ivan.imp2exp.bean.ibean.IExcuteInitColumnValue;
 import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
-import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
 import com.zhang.ivan.imp2exp.util.ExcelReader;
@@ -22,53 +19,24 @@ public class JupiterService {
 			ExcelCheckContext excelCheckContext) throws Exception {
 
 		ExcelReader excelReader = new ExcelReader(workbook);
-		DyadicArray<String> dyadicArray = excelReader.readExcel();
-		ColumnFieldInfoVO[] columnFieldInfoVOs = excelAppContext.getBatchImportInfoVO().getOtherfieldInfo();
-		TableFieldInfoVO[] tableFieldInfoVOs = excelAppContext.getBatchImportInfoVO().getFieldInfo();
-		if (columnFieldInfoVOs == null || tableFieldInfoVOs == null) {
-			throw new DataExcelException("模版定义异常");
-		}
-		int newColumnSize = tableFieldInfoVOs.length + columnFieldInfoVOs.length;
-		dyadicArray.resetInit(dyadicArray.getRowSize(), newColumnSize);
-		excelCheckContext.setDyadicArray(dyadicArray);
-		excelAppContext.setDataArray(dyadicArray);
+		Map<Integer, DyadicArray<String>> dyadicArrayMap = excelReader.readExcel(excelAppContext);
+		excelCheckContext.setDyadicArray(dyadicArrayMap);
 		/**
-		 * 上面已经将读取到的数据进行过扩充<br/>
-		 * 调用数据格式化接口 进行数据的格式化
+		 * 数据生成之后对数据进行整理 就是进行数据表块的运算
 		 */
+		// 校验之后就是进行数据块的生成
 		MinervaService.minervaLanceService(excelCheckContext, excelAppContext);
-		/**
-		 * 进行数据的校验方法
-		 */
-		List<ImpErrorInfo> impErrorInfos = MinervaService.minervaMaceService(excelCheckContext, excelAppContext);
-		/**
-		 * 主要进行业务逻辑的算法处理
-		 * 
-		 */
-		for (int i = 0; i < tableFieldInfoVOs.length; i++) {
-			Class<?> cl = Class.forName(tableFieldInfoVOs[i].getDefaultValue());
-			Object obj = cl.newInstance();
-			IExcuteInitColumnValue columnValue = null;
-			if (obj instanceof IExcuteInitColumnValue) {
-				columnValue = (IExcuteInitColumnValue) obj;
-			} else {
-				throw new Exception("数据格式化方法失败！");
-			}
-			excelAppContext.setDataArray(columnValue.excute());
-		}
+		
+		// 校验服务因为为5中类型所以需要分开方法  校验方法还没做
+		AresService.aresPretextService(excelCheckContext, excelAppContext);
 
-		String sql;
-		try {
-			sql = ExcelImpOper.initSql(excelAppContext);
-			ExcelImpOper.toDataBase(sql, excelCheckContext, excelAppContext);
-			if (excelAppContext.getProcBean() != null) {
-				// 需要执行存储过程
-			//	ProcUtils.operProc(excelAppContext.getProcBean());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DataExcelException("调用插入数据表JanusService服务出错！");
-		}
+		// 数据块成后进行数据的录入  数据导入
+		AresService.aresSabreService(excelAppContext);
+		
+		
+		
+		// 数据块生成后进行数据逻辑的业务运算 //业务逻辑还没处理
+		MinervaService.minervaMaceService(excelCheckContext, excelAppContext);
 	}
 
 }

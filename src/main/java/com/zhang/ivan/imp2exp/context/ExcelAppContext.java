@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
 import com.zhang.ivan.imp2exp.bean.ExcelConfig;
+import com.zhang.ivan.imp2exp.bean.FileldInfoVO;
 import com.zhang.ivan.imp2exp.product.ProcBean;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
 import com.zhang.ivan.imp2exp.util.database.BaseDataConnection;
@@ -15,8 +16,9 @@ public class ExcelAppContext {
 
 	protected BaseDataConnection baseDataConnection;
 	protected Map<String, BatchImportInfoVO> map;
+	protected Map<String, FileldInfoVO> fileMap;
 	protected ExcelConfig excelConfig;
-	protected Map<String, DyadicArray<String>> dataArray;
+	protected Map<String, DyadicArray<String>> initArray;
 
 	public Map<String, BatchImportInfoVO> getMap() {
 		return map;
@@ -42,12 +44,20 @@ public class ExcelAppContext {
 		this.baseDataConnection = baseDataConnection;
 	}
 
-	public Map<String, DyadicArray<String>> getDataArray() {
-		return dataArray;
+	public Map<String, DyadicArray<String>> getInitArray() {
+		return initArray;
 	}
 
-	public void setDataArray(Map<String, DyadicArray<String>> dataArray) {
-		this.dataArray = dataArray;
+	public void setInitArray(Map<String, DyadicArray<String>> initArray) {
+		this.initArray = initArray;
+	}
+
+	public Map<String, FileldInfoVO> getFileMap() {
+		return fileMap;
+	}
+
+	public void setFileMap(Map<String, FileldInfoVO> fileMap) {
+		this.fileMap = fileMap;
 	}
 
 }

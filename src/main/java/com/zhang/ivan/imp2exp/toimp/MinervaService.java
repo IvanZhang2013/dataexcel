@@ -1,10 +1,17 @@
 package com.zhang.ivan.imp2exp.toimp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
 import com.zhang.ivan.imp2exp.bean.ColumnFieldInfoVO;
+import com.zhang.ivan.imp2exp.bean.FileldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
+import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ibean.DataBaseInitValue;
 import com.zhang.ivan.imp2exp.bean.ibean.IExcuteInitColumnValue;
 import com.zhang.ivan.imp2exp.bean.ibean.LocalBaseInitValue;
@@ -13,6 +20,7 @@ import com.zhang.ivan.imp2exp.check.IExcelCheck;
 import com.zhang.ivan.imp2exp.check.LocalBaseResult;
 import com.zhang.ivan.imp2exp.check.normal.DataCheckBean;
 import com.zhang.ivan.imp2exp.check.normal.ExcelCheckContext;
+import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
 
@@ -28,88 +36,53 @@ public class MinervaService {
 	 */
 	public static List<ImpErrorInfo> minervaMaceService(ExcelCheckContext excelCheckContext,
 			ExcelAppContext excelAppContext) throws Exception {
-		/**
-		 * 数据校验逻辑 循环首先进行基础的校验 数据格式和数据行数进行校验 椒盐采用反射的机制 校验之后产生错误信息机型数据返回
-		 * 数据校验使使用反射判断是那个类进行装填数据 然后调用
-		 */
-		List<ImpErrorInfo> impErrorInfos = new ArrayList<ImpErrorInfo>();
-		List<DataCheckBean> list = excelCheckContext.getCheckbeanlist();
-		for (int i = 0; i < list.size(); i++) {
-			DataCheckBean checkBean = list.get(i);
-
-			if (checkBean == null) {
-				throw new Exception("校验方法类为空无法进行校验");
-			} else {
-				Class<?> cl = Class.forName(checkBean.getCheckClass());
-				Object obj = cl.newInstance();
-
-				IExcelCheck iExcelCheck = null;
-				if (obj instanceof IExcelCheck) {
-
-					if (obj instanceof DataBaseResult) {
-						((DataBaseResult) obj).setBaseDataConnection(excelAppContext.getBaseDataConnection());
-						((DataBaseResult) obj).setDataResult(excelAppContext.getDataArray());
-						iExcelCheck = (IExcelCheck) obj;
-					} else if (obj instanceof LocalBaseResult) {
-						((LocalBaseResult) obj).setDataResult(excelAppContext.getDataArray());
-						iExcelCheck = (IExcelCheck) obj;
-					} else {
-						throw new Exception("检验数据配置设置错误！");
-					}
-
-				}
-
-				impErrorInfos.addAll(iExcelCheck.excute(impErrorInfos, checkBean, excelAppContext));
-			}
-
-		}
-		return impErrorInfos;
+				return null;
+		
 	}
 
 	/**
-	 * 进行额外数据列的初始化
+	 * 进行数据块的数据生成
+	 * @return 
 	 * 
 	 * @throws Exception
 	 */
 	public static void minervaLanceService(ExcelCheckContext excelCheckContext, ExcelAppContext excelAppContext)
 			throws Exception {
-		/**
-		 * 数据校验逻辑 循环首先进行基础的校验 数据格式和数据行数进行校验 椒盐采用反射的机制 校验之后产生错误信息机型数据返回
-		 * 数据校验使用什么设计模式还不明白
-		 */
-		ColumnFieldInfoVO[] columnFieldInfoVOs = excelAppContext.getBatchImportInfoVO().getOtherfieldInfo();
-
-		if (columnFieldInfoVOs == null) {
-			return;
-		}
-
-		for (int i = 0; i < columnFieldInfoVOs.length; i++) {
-			ColumnFieldInfoVO columnFieldInfoVO = columnFieldInfoVOs[i];
-
-			if (columnFieldInfoVO == null) {
-				throw new Exception("校验方法类为空无法进行校验");
-			} else {
-				Class<?> cl = Class.forName(columnFieldInfoVO.getClassName());
-				Object obj = cl.newInstance();
-				IExcuteInitColumnValue iExcuteInitColumnValue = null;
-				if (obj instanceof IExcelCheck) {
-
-					if (obj instanceof DataBaseResult) {
-						((DataBaseInitValue) obj).setBaseDataConnection(excelAppContext.getBaseDataConnection());
-						((DataBaseInitValue) obj).setDataResult(excelAppContext.getDataArray());
-						iExcuteInitColumnValue = (IExcuteInitColumnValue) obj;
-					} else if (obj instanceof LocalBaseResult) {
-						((LocalBaseInitValue) obj).setDataResult(excelAppContext.getDataArray());
-						iExcuteInitColumnValue = (IExcuteInitColumnValue) obj;
-					} else {
-						throw new Exception("检验数据配置设置错误！");
+		Map<Integer, DyadicArray<String>> map = excelCheckContext.getDyadicArray();
+		Map<String, BatchImportInfoVO> initMap = excelAppContext.getMap();
+		Set<String> set = initMap.keySet();
+		Map<String, DyadicArray<String>> datamap = new HashMap<String, DyadicArray<String>>();
+		BatchImportInfoVO batchImportInfoVO = null;
+		for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {
+			String str = iterator.next();
+			batchImportInfoVO = initMap.get(str);
+			int[] sheetIndex = batchImportInfoVO.getIndex();
+			int[] colIndex = minervaWheelService(batchImportInfoVO,excelAppContext);
+			DyadicArray<String> dyadicArrayData =new DyadicArray<String>();
+			DyadicArray<String> dyadicArray=null;
+			for (int i = 0; i < sheetIndex.length; i++) {
+				dyadicArray = excelCheckContext.getDyadicArray().get(sheetIndex[i]);
+				int xpath=dyadicArrayData.getRowSize();
+				dyadicArrayData.resetInit(dyadicArrayData.getRowSize()+dyadicArray.getRowSize(), colIndex.length);
+				for (int j = 0; j < colIndex.length; j++) {
+					int s = colIndex[j];
+					for (int j2 = 0; j2 < dyadicArray.getRowSize(); j2++) {
+						if(s>0){
+							dyadicArrayData.set(xpath+j2, j, dyadicArray.get(j2, s));
+						}else{
+							dyadicArrayData.set(xpath+j2, j, null);
+						}
 					}
-
 				}
-				excelAppContext.setDataArray(iExcuteInitColumnValue.excute());
 			}
+			
+			datamap.put(str, dyadicArrayData);
 
 		}
+		
+		excelAppContext.setInitArray(datamap);
+
+	
 	}
 
 	/**
@@ -121,6 +94,33 @@ public class MinervaService {
 		 * 数据校验使用什么设计模式还不明白
 		 */
 
+	}
+
+	/**
+	 * 数据块的取数列从1开始0为需要进行计算的列
+	 * 
+	 * 先取块 在计算 先计算再取块
+	 */
+	public static int[] minervaWheelService(BatchImportInfoVO batchImportInfoVO,ExcelAppContext excelAppContext) throws Exception {
+
+		Map<String, FileldInfoVO> filemap = excelAppContext.getFileMap();
+		String[] strArray = batchImportInfoVO.getFileStr();
+		int[] fileIndex = new int[strArray.length];
+		FileldInfoVO fileldInfoVO = null;
+		for (int i = 0; i < strArray.length; i++) {
+			fileldInfoVO = filemap.get(strArray[i]);
+			if (fileldInfoVO == null) {
+				throw new DataExcelException("配置文件出错，列不匹配！");
+			}
+			if (fileldInfoVO instanceof TableFieldInfoVO) {
+				fileIndex[i] = ((TableFieldInfoVO) fileldInfoVO).getColIndex();
+			} else if (fileldInfoVO instanceof ColumnFieldInfoVO) {
+				fileIndex[i] = 0;
+			} else {
+				throw new DataExcelException("配置文件出错，列定义类型不匹配！");
+			}
+		}
+		return fileIndex;
 	}
 
 }

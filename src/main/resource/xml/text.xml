@@ -2,40 +2,16 @@
 <root>
 
 
-	<column colId="type=" col="1" type="0" />
-	<column colId="type=" col="2" type="0" />
-	<column colId="type=" col="3" type="0" />
-	<column colId="type=" type="0" className="com.ptf.otp.Dfc" />
+	<column colId="q1" col="1" type="0" />
+	<column colId="q2" col="2" type="0" />
+	<column colId="q3" col="3" type="0" />
+	<column colId="q4" type="1" className="com.ptf.otp.Dfc" />
 
 	<!-- 导入几个sheet页 -->
-	<table tableId="t1"  sheet="1,2,3" fileStr="q1,q2,q3">
-		insert into
-		tableName(id,name,sts)values(?,?,?);
+	<table tableId="t1" sheet="1,2" fileStr="q1,q2,q3,q4">
+		INSERT INTO IVAN_TEST (ID, NAME, AGEF, SQLPD)
+		VALUES (?, ?, ?, ?)
 	</table>
-	<table tableId="t1"  sheet="1,2,3" fileStr="q1,q2,q3">
-		insert into
-		tableName(id,name,sts)values(?,?,?);
-	</table>
-
-
-
-	<!-- 页内唯一 cols以英文逗号分隔 -->
-	<check tableId="type=" type="single" cols=""></check>
-	<!-- 列正则校验 -->
-	<check tableId="type=" type="regex" cols="" regexText="正则表达式"></check>
-	<!-- 唯一性 -->
-	<check tableId="type=" type="database-single" cols="" sqlText="">
-	</check><!-- 自定义 -->
-	<!-- 关联性 -->
-	<check tableId="type=" type="database-related" cols="" sqlText="">
-	</check><!-- 自定义 -->
-	<check tableId="type=" type="custom" className=""  cols="">
-	</check>
-	
-	
-	
-	<count tableId="表名" classname="统计方法" /><!-- 自定义 -->
-
 	<!-- 存储过程必须为两个传出参数 错误信息， 成功1还是失败 以 0 1为标识 -->
 	<procdure tableId="">{call UOP(?,?,?,?,?)}</procdure>
 

@@ -1,7 +1,13 @@
 package com.zhang.ivan.imp2exp.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -10,40 +16,63 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
 
+import com.zhang.ivan.imp2exp.bean.BatchImportInfoVO;
+import com.zhang.ivan.imp2exp.context.ExcelAppContext;
+
 public class ExcelReader {
 	private Workbook wb;
 	private Sheet sheet;
 	private Row row;
-	private DyadicArray<String> dyadicArray;
-	
-	
+
 	public ExcelReader(Workbook wb) {
 		this.wb = wb;
 	}
 
-	public DyadicArray<String> readExcel() {
-		sheet = wb.getSheetAt(0);
-		/**
-		 * 导入表格的时候为标题头和列项目
-		 */
-		int rowSize = sheet.getLastRowNum() - 1;
-		int columnSize = sheet.getRow(2).getPhysicalNumberOfCells();
-		dyadicArray = new DyadicArray<String>(rowSize, columnSize);
-
-		for (int i = 0; i <= rowSize-1; i++) {
-			row = sheet.getRow(i + 2);
-			int j = 0;
-			while (j < columnSize) {
-				if(row==null){
-					dyadicArray.set(i, j, null);
-				}else{
-					dyadicArray.set(i, j, getCellFormatValue(row.getCell((short) j)).trim());
-				}
-				
-				j++;
+	public Map<Integer, DyadicArray<String>> readExcel(ExcelAppContext excelAppContext) {
+		Map<String, BatchImportInfoVO> map = excelAppContext.getMap();
+		Set<String> set = map.keySet();
+		BatchImportInfoVO batchImportInfoVO = null;
+		Set<Integer> sheets = new HashSet<Integer>();
+		String str = null;
+		for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {
+			str = iterator.next();
+			batchImportInfoVO = map.get(str);
+			int[] s = batchImportInfoVO.getIndex();
+			for (int i = 0; i < s.length; i++) {
+				sheets.add(s[i]);
 			}
 		}
-		return dyadicArray;
+
+		Map<Integer, DyadicArray<String>> dyMap = new HashMap<Integer, DyadicArray<String>>();
+		for (Iterator<Integer> iterator = sheets.iterator(); iterator.hasNext();) {
+			int object = iterator.next();
+
+			sheet = wb.getSheetAt(object - 1);
+			/**
+			 * 导入表格的时候为标题头和列项目
+			 */
+			int rowSize = sheet.getLastRowNum() - 1;
+			int columnSize = sheet.getRow(2).getPhysicalNumberOfCells();
+			DyadicArray<String> dyadicArray = new DyadicArray<String>(rowSize, columnSize);
+
+			for (int i = 0; i <= rowSize - 1; i++) {
+				row = sheet.getRow(i + 2);
+				int j = 0;
+				while (j < columnSize) {
+					if (row == null) {
+						dyadicArray.set(i, j, null);
+					} else {
+						dyadicArray.set(i, j, getCellFormatValue(row.getCell((short) j)).trim());
+					}
+
+					j++;
+				}
+			}
+
+			dyMap.put(object, dyadicArray);
+		}
+
+		return dyMap;
 	}
 
 	private String getStringCellValue(Cell cell) {

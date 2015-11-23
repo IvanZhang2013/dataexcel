@@ -3,7 +3,7 @@ package com.zhang.ivan.imp2exp.check.normal;
 public class DataCheckBean {
 
 	private String type;
-	private int[] index;
+	private String[] colIds;
 	private String regexText;
 	private String sqlText;
 	private String desc;
@@ -25,12 +25,12 @@ public class DataCheckBean {
 		this.type = type;
 	}
 
-	public int[] getIndex() {
-		return index;
+	public String[] getColIds() {
+		return colIds;
 	}
 
-	public void setIndex(int[] index) {
-		this.index = index;
+	public void setColIds(String[] colIds) {
+		this.colIds = colIds;
 	}
 
 	public String getRegexText() {

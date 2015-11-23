@@ -63,12 +63,6 @@
 			<artifactId>bonecp</artifactId>
 			<version>0.8.0.RELEASE</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc14</artifactId>
-			<version>1.0</version>
-		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

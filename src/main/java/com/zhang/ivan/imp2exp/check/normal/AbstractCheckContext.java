@@ -9,7 +9,7 @@ public abstract class AbstractCheckContext {
 
 	protected Map<String, List<DataCheckBean>> checkMap;
 
-	private DyadicArray<String> dyadicArray;
+	private Map<Integer, DyadicArray<String>> dyadicArray;
 
 	public Map<String, List<DataCheckBean>> getCheckMap() {
 		return checkMap;
@@ -19,11 +19,11 @@ public abstract class AbstractCheckContext {
 		this.checkMap = checkMap;
 	}
 
-	public DyadicArray<String> getDyadicArray() {
+	public Map<Integer, DyadicArray<String>> getDyadicArray() {
 		return dyadicArray;
 	}
 
-	public void setDyadicArray(DyadicArray<String> dyadicArray) {
+	public void setDyadicArray(Map<Integer, DyadicArray<String>> dyadicArray) {
 		this.dyadicArray = dyadicArray;
 	}
 
