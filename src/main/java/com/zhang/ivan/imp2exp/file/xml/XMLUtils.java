@@ -43,6 +43,7 @@ public class XMLUtils {
 		if (list != null && list.size() > 0) {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
+				node = iterator.next();
 				String columnId = node.valueOf("@colId");
 				if (columnId == null || columnId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，column 节点Id属性必须定义");
@@ -97,6 +98,7 @@ public class XMLUtils {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
 				List<DataCheckBean> listCheck = null;
+				node = iterator.next();
 				String checkId = node.valueOf("@tableId");
 				if (checkId == null || checkId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，check 节点tableId属性必须定义");
@@ -117,20 +119,12 @@ public class XMLUtils {
 						throw new DataExcelException(
 								"配置文档内容出错，check节点type属性必须定义为single，regex，databae-single，database-related或者custom其中之一");
 					}
-					String cols = node.valueOf("@cols");
+					String cols = node.valueOf("@colIds");
 					if (cols != null && cols.trim().length() > 0) {
 						String[] qt = cols.trim().split(",");
-						int[] index = new int[qt.length];
-						for (int i = 0; i < qt.length; i++) {
-							if (RegexChk.checkNrs(qt[i])) {
-								index[i] = Integer.valueOf(qt[i]);
-							} else {
-								throw new DataExcelException("配置文件内容错误，check节点cols属性中内容错误！");
-							}
-						}
-						dataCheckBean.setIndex(index);
+						dataCheckBean.setColIds(qt);
 					} else {
-						throw new DataExcelException("配置文件内容错误，check节点cols属性中内容错误！");
+						throw new DataExcelException("配置文件内容错误，check节点colIds属性中内容错误！");
 					}
 
 					if (type.trim().equals("database-single") || type.trim().equals("database-related")) {
@@ -185,6 +179,7 @@ public class XMLUtils {
 		if (list != null && list.size() > 0) {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
+				node = iterator.next();
 				String countId = node.valueOf("@tableId");
 				if (countId == null || countId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，count 节点tableId属性必须定义");
@@ -213,6 +208,7 @@ public class XMLUtils {
 		if (list != null && list.size() > 0) {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
+				node = iterator.next();
 				String procId = node.valueOf("@tableId");
 				if (procId == null || procId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，procdure 节点tableId属性必须定义");
@@ -240,7 +236,7 @@ public class XMLUtils {
 		if (list != null && list.size() > 0) {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
-
+				node = iterator.next();
 				String tableId = node.valueOf("@tableId");
 				if (tableId == null || tableId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，table 节点tableId属性必须定义");
@@ -287,19 +283,11 @@ public class XMLUtils {
 		Map<String, BatchImportInfoVO> mapTable = doc2Table(document);
 		Map<String, FileldInfoVO> mapFile = doc2Fileld(document);
 		Map<String, ProcBean> procMap = new HashMap<String, ProcBean>();
+		excelAppContext.setFileMap(mapFile);
 		Set<String> set = mapTable.keySet();
 		for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {
 			String object = iterator.next();
 			BatchImportInfoVO batchImportInfoVO = mapTable.get(object);
-			String[] fileStr = batchImportInfoVO.getFileStr();
-			String str = "";
-			Map<String, FileldInfoVO> fileMap = new HashMap<String, FileldInfoVO>();
-			for (int i = 0; i < fileStr.length; i++) {
-				str = fileStr[i];
-				fileMap.put(str, mapFile.get(str));
-			}
-			batchImportInfoVO.setFileMap(fileMap);
-
 			ProcBean procBean = procMap.get(object);
 			batchImportInfoVO.setProcBean(procBean);
 		}

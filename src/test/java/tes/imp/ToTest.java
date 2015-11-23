@@ -45,10 +45,12 @@ public class ToTest implements IExcelCheck {
 		exp.setTempPath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
 		exp.setUploadFilePath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
 		ExcelConfig config  = new ExcelConfig();
-		XMLUtils.doc2ExcelAppContext(XMLUtils.xml2Document(config.getxPatch()));
-		ExcelAppContext appContext = new ExcelAppContext();
-		
-		ExcelCheckContext e = new ExcelCheckContext();
+		config.setxPatch("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\src\\main\\resource\\xml\\text.xml");
+		ExcelAppContext appContext=XMLUtils.doc2ExcelAppContext(XMLUtils.xml2Document(config.getxPatch()));
+		BaseDataConnection baseDataConnection  = new BaseDataConnection();
+		baseDataConnection.setDataSource(new DataSourceBoneCp().getDataSource());
+		appContext.setBaseDataConnection(baseDataConnection);
+		ExcelCheckContext e = XMLUtils.doc2ExcelCheckContext(XMLUtils.xml2Document(config.getxPatch()));
 
 		ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
 	}
@@ -56,7 +58,6 @@ public class ToTest implements IExcelCheck {
 	@Override
 	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
 			ExcelAppContext excelAppContext) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

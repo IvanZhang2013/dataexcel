@@ -14,16 +14,7 @@ public class BatchImportInfoVO {
 	private String insertSql;
 	private int[] index;
 	private String[] fileStr;
-	private Map<String, FileldInfoVO> fileMap;
 	private ProcBean procBean;
-
-	public Map<String, FileldInfoVO> getFileMap() {
-		return fileMap;
-	}
-
-	public void setFileMap(Map<String, FileldInfoVO> fileMap) {
-		this.fileMap = fileMap;
-	}
 
 	public ProcBean getProcBean() {
 		return procBean;

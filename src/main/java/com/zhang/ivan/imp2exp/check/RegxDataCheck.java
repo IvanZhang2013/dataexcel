@@ -23,11 +23,14 @@ public class RegxDataCheck extends LocalBaseResult implements IExcelCheck {
 			ExcelAppContext excelAppContext) throws Exception {
 		int columsize = getDataResult().getColumnSize();
 
-		int[] params = dataCheckBean.getCheckColumn();
+		String[] params = dataCheckBean.getColIds();
+		               excelAppContext.getFileMap();
 
 		if (params == null) {
 			throw new DataExcelException("校验公式定义错误！");
 		}
+		
+		
 		for (int i = 0; i < params.length; i++) {
 			if (params[i] >= columsize) {
 				throw new DataExcelException("校验公式定义错误！");
