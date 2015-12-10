@@ -7,6 +7,7 @@ public class TableFieldInfoVO extends FileldInfoVO {
 
 	private String defaultValue;// 如果可以为空，为空时的默认值
 	private int colIndex;
+	private boolean required;
 
 	/**
 	 * 设置默认值
@@ -30,6 +31,14 @@ public class TableFieldInfoVO extends FileldInfoVO {
 
 	public void setColIndex(int colIndex) {
 		this.colIndex = colIndex;
+	}
+
+	public boolean isRequired() {
+		return required;
+	}
+
+	public void setRequired(boolean required) {
+		this.required = required;
 	}
 
 }
