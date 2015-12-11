@@ -74,7 +74,7 @@ public class AresService {
 
 					}
 
-					impErrorInfos.addAll(iExcelCheck.excute(impErrorInfos, checkBean, excelAppContext));
+					iExcelCheck.excute(impErrorInfos, checkBean, excelAppContext);
 				}
 
 			}
@@ -145,7 +145,6 @@ public class AresService {
 				}
 			}
 		}
-
 		return index;
 	}
 }

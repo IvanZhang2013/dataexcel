@@ -68,6 +68,14 @@ public class XMLUtils {
 					} else {
 						tableFieldInfoVO.setDefaultValue(null);
 					}
+					
+					col = node.valueOf("@required");
+					if (col != null && col.trim().length() > 0 &&col.trim().equalsIgnoreCase("true") ) {
+						tableFieldInfoVO.setRequired(true);
+					} else {
+						tableFieldInfoVO.setRequired(false);
+					}
+					
 					map.put(columnId.trim(), tableFieldInfoVO);
 				} else if (fileType == null || fileType.equals("") || fileType.equals("1")) {
 					ColumnFieldInfoVO columnFieldInfoVO = new ColumnFieldInfoVO();
@@ -154,7 +162,6 @@ public class XMLUtils {
 					String desc = node.getText();
 					if (desc != null && desc.trim().length() > 0) {
 						dataCheckBean.setDesc(desc);
-						;
 					} else {
 						throw new DataExcelException("配置文件内容错误，check节点必须有验证说明！");
 					}

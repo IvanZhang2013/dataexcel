@@ -30,7 +30,7 @@ public class SingleDataCheck extends LocalBaseResult implements IExcelCheck {
 		if (params == null) {
 			throw new DataExcelException("校验公式colids定义错误！");
 		}
-		String[] rows = null;
+		Object[] rows = null;
 		Set<String> set = new HashSet<String>();
 		StringBuffer stringBuffer = new StringBuffer();
 
@@ -40,7 +40,7 @@ public class SingleDataCheck extends LocalBaseResult implements IExcelCheck {
 				if (rows[j] == null) {
 					stringBuffer.append("|");
 				} else {
-					stringBuffer.append(rows[j]).append("|");
+					stringBuffer.append(rows[j].toString()).append("|");
 				}
 
 			}

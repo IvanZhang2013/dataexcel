@@ -30,13 +30,13 @@ public class RegxDataCheck extends LocalBaseResult implements IExcelCheck {
 		}
 
 		int j = 0;
-		String[] column = null;
+		Object[] column = null;
 		for (int i = 0; i < index.length; i++) {
 			j = index[i];
 			column = getDataResult().getColumn(j);
 			for (int q = 0; q < column.length; q++) {
 
-				if (!this.regx(regexStr, column[q])) {
+				if (!this.regx(regexStr, column[q].toString())) {
 
 					if (list == null) {
 						list = new ArrayList<ImpErrorInfo>();

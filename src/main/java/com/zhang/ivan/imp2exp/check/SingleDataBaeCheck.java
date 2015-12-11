@@ -33,9 +33,9 @@ public class SingleDataBaeCheck extends DataBaseResult implements IExcelCheck {
 
 			for (int i = 0; i < rowsize; i++) {
 				ps.clearParameters();
-				String[] strRow = getDataResult().getColumn(i);
+				Object[] strRow = getDataResult().getRow(i);
 				for (int j = 0; j < params.length; j++) {
-					ps.setString(j + 1, strRow[params[j]]);
+					ps.setString(j + 1, strRow[params[j]].toString());
 				}
 				rs = ps.executeQuery();
 				if (rs.next()) {

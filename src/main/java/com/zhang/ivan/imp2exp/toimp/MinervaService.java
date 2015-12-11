@@ -1,5 +1,8 @@
 package com.zhang.ivan.imp2exp.toimp;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,14 +15,7 @@ import com.zhang.ivan.imp2exp.bean.ColumnFieldInfoVO;
 import com.zhang.ivan.imp2exp.bean.FileldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
 import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
-import com.zhang.ivan.imp2exp.bean.ibean.DataBaseInitValue;
-import com.zhang.ivan.imp2exp.bean.ibean.IExcuteInitColumnValue;
-import com.zhang.ivan.imp2exp.bean.ibean.LocalBaseInitValue;
-import com.zhang.ivan.imp2exp.check.bean.DataCheckBean;
 import com.zhang.ivan.imp2exp.check.bean.ExcelCheckContext;
-import com.zhang.ivan.imp2exp.check.oper.DataBaseResult;
-import com.zhang.ivan.imp2exp.check.oper.IExcelCheck;
-import com.zhang.ivan.imp2exp.check.oper.LocalBaseResult;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
@@ -36,13 +32,55 @@ public class MinervaService {
 	 */
 	public static List<ImpErrorInfo> minervaMaceService(ExcelCheckContext excelCheckContext,
 			ExcelAppContext excelAppContext) throws Exception {
-				return null;
-		
+		Map<String, List<String>> paramMap = excelAppContext.getParamStr();
+		Set<String> paramset = paramMap.keySet();
+		List<ImpErrorInfo> impErrorInfos = new ArrayList<ImpErrorInfo>();
+		Connection connection = null;
+		CallableStatement callableStatement = null;
+		for (Iterator<String> iterator = paramset.iterator(); iterator.hasNext();) {
+			String str = (String) iterator.next();
+			try {
+				connection = excelAppContext.getBaseDataConnection().getDataSource().getConnection();
+				callableStatement = connection
+						.prepareCall(excelAppContext.getMap().get("str").getProcBean().getProcText());
+				List<String> list = paramMap.get(str);
+				for (int i = 0; i < list.size() - 2; i++) {
+					callableStatement.setString(i + 1, list.get(i));
+				}
+				callableStatement.registerOutParameter(list.size() - 1, Types.VARCHAR);
+				callableStatement.registerOutParameter(list.size(), Types.VARCHAR);
+				callableStatement.executeUpdate();
+
+				String status = callableStatement.getString(list.size() - 1);
+				String error = callableStatement.getString(list.size());
+				if (status.trim().equals("0")) {
+					throw new DataExcelException("存储过程执行失败！");
+				} else {
+					ImpErrorInfo impErrorInfo = new ImpErrorInfo();
+					impErrorInfo.setErrorInfo(error);
+					impErrorInfos.add(impErrorInfo);
+				}
+			} catch (Exception e) {
+				throw new DataExcelException("存储过程执行失败");
+			} finally {
+				if (callableStatement != null) {
+					callableStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+
+			}
+		}
+
+		return impErrorInfos;
+
 	}
 
 	/**
 	 * 进行数据块的数据生成
-	 * @return 
+	 * 
+	 * @return
 	 * 
 	 * @throws Exception
 	 */
@@ -57,32 +95,31 @@ public class MinervaService {
 			String str = iterator.next();
 			batchImportInfoVO = initMap.get(str);
 			int[] sheetIndex = batchImportInfoVO.getIndex();
-			int[] colIndex = minervaWheelService(batchImportInfoVO,excelAppContext);
-			DyadicArray<String> dyadicArrayData =new DyadicArray<String>();
-			DyadicArray<String> dyadicArray=null;
+			int[] colIndex = minervaWheelService(batchImportInfoVO, excelAppContext);
+			DyadicArray<String> dyadicArrayData = new DyadicArray<String>();
+			DyadicArray<String> dyadicArray = null;
 			for (int i = 0; i < sheetIndex.length; i++) {
 				dyadicArray = excelCheckContext.getDyadicArray().get(sheetIndex[i]);
-				int xpath=dyadicArrayData.getRowSize();
-				dyadicArrayData.resetInit(dyadicArrayData.getRowSize()+dyadicArray.getRowSize(), colIndex.length);
+				int xpath = dyadicArrayData.getRowSize();
+				dyadicArrayData.resetInit(dyadicArrayData.getRowSize() + dyadicArray.getRowSize(), colIndex.length);
 				for (int j = 0; j < colIndex.length; j++) {
 					int s = colIndex[j];
 					for (int j2 = 0; j2 < dyadicArray.getRowSize(); j2++) {
-						if(s>0){
-							dyadicArrayData.set(xpath+j2, j, dyadicArray.get(j2, s));
-						}else{
-							dyadicArrayData.set(xpath+j2, j, null);
+						if (s > 0) {
+							dyadicArrayData.set(xpath + j2, j, dyadicArray.get(j2, s-1));
+						} else {
+							dyadicArrayData.set(xpath + j2, j, null);
 						}
 					}
 				}
 			}
-			
+
 			datamap.put(str, dyadicArrayData);
 
 		}
-		
+
 		excelAppContext.setInitArray(datamap);
 
-	
 	}
 
 	/**
@@ -101,7 +138,8 @@ public class MinervaService {
 	 * 
 	 * 先取块 在计算 先计算再取块
 	 */
-	public static int[] minervaWheelService(BatchImportInfoVO batchImportInfoVO,ExcelAppContext excelAppContext) throws Exception {
+	public static int[] minervaWheelService(BatchImportInfoVO batchImportInfoVO, ExcelAppContext excelAppContext)
+			throws Exception {
 
 		Map<String, FileldInfoVO> filemap = excelAppContext.getFileMap();
 		String[] strArray = batchImportInfoVO.getFileStr();
