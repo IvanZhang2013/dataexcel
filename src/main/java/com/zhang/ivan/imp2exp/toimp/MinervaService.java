@@ -16,6 +16,7 @@ import com.zhang.ivan.imp2exp.bean.FileldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
 import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
 import com.zhang.ivan.imp2exp.check.bean.ExcelCheckContext;
+import com.zhang.ivan.imp2exp.col.math.AbstractDataMath;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
@@ -86,7 +87,7 @@ public class MinervaService {
 	 */
 	public static void minervaLanceService(ExcelCheckContext excelCheckContext, ExcelAppContext excelAppContext)
 			throws Exception {
-		Map<Integer, DyadicArray<String>> map = excelCheckContext.getDyadicArray();
+
 		Map<String, BatchImportInfoVO> initMap = excelAppContext.getMap();
 		Set<String> set = initMap.keySet();
 		Map<String, DyadicArray<String>> datamap = new HashMap<String, DyadicArray<String>>();
@@ -104,11 +105,15 @@ public class MinervaService {
 				dyadicArrayData.resetInit(dyadicArrayData.getRowSize() + dyadicArray.getRowSize(), colIndex.length);
 				for (int j = 0; j < colIndex.length; j++) {
 					int s = colIndex[j];
+					AbstractDataMath abstractDataMath = null;
+					if (s == 0) {
+						abstractDataMath = minervaShieldService(excelAppContext, batchImportInfoVO.getFileStr()[j]);
+					}
 					for (int j2 = 0; j2 < dyadicArray.getRowSize(); j2++) {
 						if (s > 0) {
-							dyadicArrayData.set(xpath + j2, j, dyadicArray.get(j2, s-1));
-						} else {
-							dyadicArrayData.set(xpath + j2, j, null);
+							dyadicArrayData.set(xpath + j2, j, dyadicArray.get(j2, s - 1));
+						} else if (s == 0) {
+							dyadicArrayData.set(xpath + j2, j, abstractDataMath.math(dyadicArray.getRow(j2)));
 						}
 					}
 				}
@@ -123,14 +128,27 @@ public class MinervaService {
 	}
 
 	/**
-	 * 进行额外数据列的初始化
+	 * 进行反射出进行计算的抽象类
+	 * 
 	 */
-	public static void minervaShieldService(ExcelCheckContext excelCheckContext) {
-		/**
-		 * 数据校验逻辑 循环首先进行基础的校验 数据格式和数据行数进行校验 椒盐采用反射的机制 校验之后产生错误信息机型数据返回
-		 * 数据校验使用什么设计模式还不明白
-		 */
-
+	public static AbstractDataMath minervaShieldService(ExcelAppContext excelAppContext, String colName) throws Exception {
+		AbstractDataMath abstractDataMath = null;
+		FileldInfoVO fileldInfoVO = excelAppContext.getFileMap().get(colName);
+		if (fileldInfoVO instanceof ColumnFieldInfoVO) {
+			ColumnFieldInfoVO columnFieldInfoVO = (ColumnFieldInfoVO) fileldInfoVO;
+			String className = columnFieldInfoVO.getClassName();
+			Class<?> cl = Class.forName(className);
+			Object obj = cl.newInstance();
+			if (obj instanceof AbstractDataMath) {
+				abstractDataMath = (AbstractDataMath) obj;
+				abstractDataMath.setBaseDataConnection(excelAppContext.getBaseDataConnection());
+			} else {
+				throw new Exception("公示定义类的类型错误！");
+			}
+		} else {
+			throw new Exception("类型定义错误！");
+		}
+		return abstractDataMath;
 	}
 
 	/**

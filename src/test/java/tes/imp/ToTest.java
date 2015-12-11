@@ -39,6 +39,7 @@ public class ToTest implements IExcelCheck {
 		return (BatchImportInfoVO) employees;
 	}
 
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws Exception {
 		long f = System.currentTimeMillis();
 		Imp exp = new Imp();
@@ -53,6 +54,7 @@ public class ToTest implements IExcelCheck {
 		appContext.setBaseDataConnection(baseDataConnection);
 		ExcelCheckContext e = XMLUtils.doc2ExcelCheckContext(XMLUtils.xml2Document(config.getxPatch()));
 
+		@SuppressWarnings("unused")
 		ExcelResult d = ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
 		long s = System.currentTimeMillis();
 		System.out.println(s-f);
