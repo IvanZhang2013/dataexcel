@@ -16,8 +16,7 @@ import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 public class RelatedDataCheck extends DataBaseResult implements IExcelCheck {
 
 	@Override
-	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
-			ExcelAppContext excelAppContext) throws Exception {
+	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean) throws Exception {
 		int[] params = getColdIndex();
 		int rowsize = getDataResult().getRowSize();
 

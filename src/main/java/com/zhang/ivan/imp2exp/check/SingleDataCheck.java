@@ -22,8 +22,7 @@ public class SingleDataCheck extends LocalBaseResult implements IExcelCheck {
 	 * 对空的重复性不进行判断
 	 * 
 	 */
-	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
-			ExcelAppContext excelAppContext) throws Exception {
+	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean) throws Exception {
 		int[] params = getColdIndex();
 		int rowsize = getDataResult().getRowSize();
 
