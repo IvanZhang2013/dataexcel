@@ -34,7 +34,7 @@ public class JupiterService {
 			throw new DataExcelException("数据块生成错误");
 		}
 
-		// 校验服务因为为5中类型所以需要分开方法 校验方法还没做
+		// 校验服务
 		List<ImpErrorInfo> list = AresService.aresPretextService(excelCheckContext, excelAppContext);
 
 		if (list.size() > 0) {

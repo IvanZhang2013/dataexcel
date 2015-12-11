@@ -5,9 +5,11 @@
 	<column colId="q3" col="3" type="0" />
 	<column colId="q4" col="4" type="0" />
 	<column colId="q5" col="5" type="0" />
+	<column colId="q6" type="1"  className="com.cndncd.cdcd"/>
+	<column colId="q7" type="1"  className="com.cndncd.cdcd"/>
 
 	<!-- 导入几个sheet页 -->
-	<table tableId="t1" sheet="1,2" fileStr="q1,q2,q3,q4,q5">
+	<table tableId="t1" sheet="1,2" fileStr="q1,q2,q3,q4,q5,q6,q7">
 		INSERT INTO
 		NEWHR.IVAN_TEST (NAME, ID, PASS, NAME2, NAME3)
 		VALUES (?, ?, ?, ?, ?)
@@ -23,8 +25,8 @@
 	<!-- 关联性 -->
 	<check tableId="t1" type="database-related" colIds="q1" sqlText="select count(?) from dual ">wrew
 	</check><!-- 自定义 -->
-	<!--  <check tableId="t1" type="custom" className="3232132" colIds="321">wrewr
-	</check>-->
+	<check tableId="t1" type="custom" className="com.org.st" colIds="321">wrewr
+	</check>
 
 
 	<!-- 存储过程必须为两个传出参数 错误信息， 成功1还是失败 以 0 1为标识 -->
