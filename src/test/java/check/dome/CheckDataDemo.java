@@ -1,4 +1,4 @@
-package com.zhang.ivan.imp2exp.check;
+package check.dome;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,11 +11,19 @@ import com.zhang.ivan.imp2exp.check.bean.DataCheckBean;
 import com.zhang.ivan.imp2exp.check.oper.DataBaseResult;
 import com.zhang.ivan.imp2exp.check.oper.IExcelCheck;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
-import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 
-public class RelatedDataCheck extends DataBaseResult implements IExcelCheck {
+/**
+ * 对于需要连接数据库的请求
+ * 普通的不需要连接数据库的话只需要继承
+ * extends LocalBaseResult implements IExcelCheck
+ * 在进行校验的话尽量不要再当前进行校验可以考虑使用存储过程校验   这个可能需要在后续中进行使用
+ */
+public class CheckDataDemo extends DataBaseResult implements IExcelCheck {
 
 	@Override
+	/**
+	 * 传入的参数是 list 里面存放的是所有错误信息 dataCkecBean 校验信息 excelAppContext 里面存放的是应用文
+	 */
 	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean) throws Exception {
 		int[] params = getColdIndex();
 		int rowsize = getDataResult().getRowSize();
@@ -58,4 +66,5 @@ public class RelatedDataCheck extends DataBaseResult implements IExcelCheck {
 
 		return list;
 	}
+
 }

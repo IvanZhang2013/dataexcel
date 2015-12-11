@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-	<column colId="q1" col="1" type="0" />
+	<column colId="q1" col="1" type="0" defaultValue=" " required="true" />
 	<column colId="q2" col="2" type="0" />
 	<column colId="q3" col="3" type="0" />
-	<column colId="q4" type="1" className="com.ptf.otp.Dfc" />
+	<column colId="q4" col="4" type="0" />
+	<column colId="q5" col="5" type="0" />
+
 	<!-- 导入几个sheet页 -->
-	<table tableId="t1" sheet="1,2" fileStr="q1,q2,q3,q4">
-		INSERT INTO IVAN_TEST
-		(ID, NAME, AGEF, SQLPD)
-		VALUES (?, ?, ?, ?)
+	<table tableId="t1" sheet="1,2" fileStr="q1,q2,q3,q4,q5">
+		INSERT INTO
+		NEWHR.IVAN_TEST (NAME, ID, PASS, NAME2, NAME3)
+		VALUES (?, ?, ?, ?, ?)
 	</table>
+
+	<!-- 页内唯一 cols以英文逗号分隔 -->
+	<check tableId="t1" type="single" colIds="q1">rwrew</check>
+	<!-- 列正则校验 -->
+	<check tableId="t1" type="regex" colIds="q1" regexText="正则表达式">wrewrew</check>
+	<!-- 唯一性 -->
+	<check tableId="t1" type="database-single" colIds="q1" sqlText="select count(?) from dual ">rewrew
+	</check><!-- 自定义 -->
+	<!-- 关联性 -->
+	<check tableId="t1" type="database-related" colIds="q1" sqlText="select count(?) from dual ">wrew
+	</check><!-- 自定义 -->
+	<!--  <check tableId="t1" type="custom" className="3232132" colIds="321">wrewr
+	</check>-->
+
+
 	<!-- 存储过程必须为两个传出参数 错误信息， 成功1还是失败 以 0 1为标识 -->
 	<procdure tableId="">{call UOP(?,?,?,?,?)}</procdure>
 </root>

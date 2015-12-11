@@ -74,7 +74,7 @@ public class AresService {
 
 					}
 
-					iExcelCheck.excute(impErrorInfos, checkBean, excelAppContext);
+					iExcelCheck.excute(impErrorInfos, checkBean);
 				}
 
 			}
