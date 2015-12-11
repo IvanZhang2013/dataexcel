@@ -144,18 +144,18 @@ public class DyadicArray<E> {
 		return oldValue;
 	}
 
-	@SuppressWarnings("unchecked")
-	public E[] getRow(int rowIndexValue) throws Exception {
+
+	public Object[] getRow(int rowIndexValue) throws Exception {
 		if (elementData == null) {
 			throw new Exception("数组为空！");
 		} else {
-			return (E[]) elementData[rowIndexValue];
+			return  elementData[rowIndexValue];
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "null" })
-	public E[] getColumn(int columnIndexValue) throws Exception {
-		E[] columnArray = null;
+
+	public Object[] getColumn(int columnIndexValue) throws Exception {
+		Object[] columnArray = new Object[rowIndex];
 
 		if (elementData == null) {
 			throw new Exception("数组为空！");
@@ -164,10 +164,10 @@ public class DyadicArray<E> {
 			if (elementData[i] == null) {
 				throw new Exception("选择列数组不完整！");
 			} else {
-				columnArray[i] = (E) elementData[i][columnIndexValue];
+				columnArray[i] = elementData[i][columnIndexValue];
 			}
 		}
-		return columnArray;
+		return  columnArray;
 
 	}
 

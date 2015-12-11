@@ -13,6 +13,7 @@ import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
 import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
 import com.zhang.ivan.imp2exp.check.bean.DataCheckBean;
 import com.zhang.ivan.imp2exp.check.bean.ExcelCheckContext;
+import com.zhang.ivan.imp2exp.check.bean.ExcelResult;
 import com.zhang.ivan.imp2exp.check.oper.IExcelCheck;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 import com.zhang.ivan.imp2exp.file.xml.XMLUtils;
@@ -39,7 +40,7 @@ public class ToTest implements IExcelCheck {
 	}
 
 	public static void main(String[] args) throws Exception {
-
+		long f = System.currentTimeMillis();
 		Imp exp = new Imp();
 		exp.setTempNm("workbook.xls");
 		exp.setTempPath("F:\\GitHub\\Eclipse_GitHub\\dataexcel\\workbook.xls");
@@ -52,12 +53,13 @@ public class ToTest implements IExcelCheck {
 		appContext.setBaseDataConnection(baseDataConnection);
 		ExcelCheckContext e = XMLUtils.doc2ExcelCheckContext(XMLUtils.xml2Document(config.getxPatch()));
 
-		ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
+		ExcelResult d = ToImpFactory.getWorkbook(PoiExcelType.EXCEL_XLS, appContext).excute(exp, e);
+		long s = System.currentTimeMillis();
+		System.out.println(s-f);
 	}
 
 	@Override
-	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
-			ExcelAppContext excelAppContext) throws Exception {
+	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean) throws Exception {
 		return null;
 	}
 }

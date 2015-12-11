@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.zhang.ivan.imp2exp.bean.ImpExcelTemplate;
 import com.zhang.ivan.imp2exp.check.bean.ExcelCheckContext;
+import com.zhang.ivan.imp2exp.check.bean.ExcelResult;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 
 /**
@@ -21,11 +22,11 @@ public class XLS2Data extends AbstractExcel2Data implements ToImp {
 
 	public static Logger logger = LoggerFactory.getLogger(XLS2Data.class);
 
-	public void excute(ImpExcelTemplate imp, ExcelCheckContext excelCheckContext) throws Exception {
+	public ExcelResult excute(ImpExcelTemplate imp, ExcelCheckContext excelCheckContext) throws Exception {
 		String uploadFile = imp.getUploadFilePath();
 		xlsWorkBook = new HSSFWorkbook(new FileInputStream(uploadFile));
-		JupiterService.jupiterLanceService(xlsWorkBook, excelAppContext, excelCheckContext);
-
+		ExcelResult excelResult = JupiterService.jupiterLanceService(xlsWorkBook, excelAppContext, excelCheckContext);
+		return excelResult;
 	}
 
 	public void setExcelAppContext(ExcelAppContext excelAppContext) {

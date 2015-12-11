@@ -17,8 +17,7 @@ import com.zhang.ivan.imp2exp.context.ExcelAppContext;
  */
 public class RegxDataCheck extends LocalBaseResult implements IExcelCheck {
 
-	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean,
-			ExcelAppContext excelAppContext) throws Exception {
+	public List<ImpErrorInfo> excute(List<ImpErrorInfo> list, DataCheckBean dataCheckBean) throws Exception {
 		int[] index = getColdIndex();
 		String regexStr = dataCheckBean.getRegexText();
 		if (!(index != null && index.length > 0)) {
