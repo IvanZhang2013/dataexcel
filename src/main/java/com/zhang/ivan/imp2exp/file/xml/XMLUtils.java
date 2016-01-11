@@ -44,17 +44,17 @@ public class XMLUtils {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
 				node = iterator.next();
-				String columnId = node.valueOf("@colId");
+				String columnId = node.valueOf("@colId").replace(" ", "");
 				if (columnId == null || columnId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，column 节点Id属性必须定义");
 				}
-				String fileType = node.valueOf("@type");
+				String fileType = node.valueOf("@type").replace(" ", "");
 				String col = null;
 				String calssName = null;
 				int num = 0;
 				if (fileType != null && fileType.equals("0")) {
 					TableFieldInfoVO tableFieldInfoVO = new TableFieldInfoVO();
-					col = node.valueOf("@col");
+					col = node.valueOf("@col").replace(" ", "");
 					// 校验正整数必须大于0
 					if (col != null && RegexChk.checkNrs(col)) {
 						num = Integer.valueOf(col);
@@ -62,14 +62,14 @@ public class XMLUtils {
 						throw new DataExcelException("配置文档出错，column节点type类型为实列时，必须定义col的属性为正整数");
 					}
 					tableFieldInfoVO.setColIndex(num);
-					col = node.valueOf("@defaultValue");
+					col = node.valueOf("@defaultValue").replace(" ", "");
 					if (col != null && col.trim().length() > 0) {
 						tableFieldInfoVO.setDefaultValue(col.trim());
 					} else {
 						tableFieldInfoVO.setDefaultValue(null);
 					}
 					
-					col = node.valueOf("@required");
+					col = node.valueOf("@required").replace(" ", "");
 					if (col != null && col.trim().length() > 0 &&col.trim().equalsIgnoreCase("true") ) {
 						tableFieldInfoVO.setRequired(true);
 					} else {
@@ -79,7 +79,7 @@ public class XMLUtils {
 					map.put(columnId.trim(), tableFieldInfoVO);
 				} else if (fileType == null || fileType.equals("") || fileType.equals("1")) {
 					ColumnFieldInfoVO columnFieldInfoVO = new ColumnFieldInfoVO();
-					calssName = node.valueOf("@className");
+					calssName = node.valueOf("@className").replace(" ", "");
 					if (calssName != null && calssName.trim().length() > 0) {
 						columnFieldInfoVO.setClassName(calssName);
 					} else {
@@ -107,7 +107,7 @@ public class XMLUtils {
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
 				List<DataCheckBean> listCheck = null;
 				node = iterator.next();
-				String checkId = node.valueOf("@tableId");
+				String checkId = node.valueOf("@tableId").replace(" ", "");
 				if (checkId == null || checkId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，check 节点tableId属性必须定义");
 				}
@@ -117,7 +117,7 @@ public class XMLUtils {
 					listCheck = map.get(checkId);
 				}
 				DataCheckBean dataCheckBean = new DataCheckBean();
-				String type = node.valueOf("@type");
+				String type = node.valueOf("@type").replace(" ", "");
 				if (type != null && type.trim().length() > 0) {
 					if (type.trim().equals("single") || type.trim().equals("regex")
 							|| type.trim().equals("database-single") || type.trim().equals("database-related")
@@ -127,7 +127,7 @@ public class XMLUtils {
 						throw new DataExcelException(
 								"配置文档内容出错，check节点type属性必须定义为single，regex，databae-single，database-related或者custom其中之一");
 					}
-					String cols = node.valueOf("@colIds");
+					String cols = node.valueOf("@colIds").replace(" ", "");
 					if (cols != null && cols.trim().length() > 0) {
 						String[] qt = cols.trim().split(",");
 						dataCheckBean.setColIds(qt);
@@ -187,11 +187,11 @@ public class XMLUtils {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
 				node = iterator.next();
-				String countId = node.valueOf("@tableId");
+				String countId = node.valueOf("@tableId").replace(" ", "");
 				if (countId == null || countId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，count 节点tableId属性必须定义");
 				}
-				String className = node.valueOf("@className");
+				String className = node.valueOf("@className").replace(" ", "");
 				CountBean countBean = new CountBean();
 				if (className != null && className.trim().length() > 0) {
 					countBean.setClassName(className);
@@ -216,7 +216,7 @@ public class XMLUtils {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
 				node = iterator.next();
-				String procId = node.valueOf("@tableId");
+				String procId = node.valueOf("@tableId").replace(" ", "");
 				if (procId == null || procId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，procdure 节点tableId属性必须定义");
 				}
@@ -244,7 +244,7 @@ public class XMLUtils {
 			Node node = null;
 			for (Iterator<Node> iterator = list.iterator(); iterator.hasNext();) {
 				node = iterator.next();
-				String tableId = node.valueOf("@tableId");
+				String tableId = node.valueOf("@tableId").replace(" ", "");
 				if (tableId == null || tableId.trim().equals("")) {
 					throw new DataExcelException("配置文档内容出错，table 节点tableId属性必须定义");
 				}
@@ -256,7 +256,7 @@ public class XMLUtils {
 				} else {
 					throw new DataExcelException("配置文档内容出错，table必须定义插入语句内容");
 				}
-				String sheet = node.valueOf("@sheet");
+				String sheet = node.valueOf("@sheet").replace(" ", "");
 				if (sheet != null && sheet.trim().length() > 0) {
 					String[] qt = sheet.trim().split(",");
 					int[] index = new int[qt.length];
@@ -270,7 +270,7 @@ public class XMLUtils {
 					batchImportInfoVO.setIndex(index);
 				}
 
-				String fileStr = node.valueOf("@fileStr");
+				String fileStr = node.valueOf("@fileStr").replace(" ", "");
 				if (fileStr != null && fileStr.trim().length() > 0) {
 					batchImportInfoVO.setFileStr(fileStr.trim().split(","));
 				} else {

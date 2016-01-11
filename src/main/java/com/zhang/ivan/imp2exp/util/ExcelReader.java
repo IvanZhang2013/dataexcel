@@ -1,7 +1,6 @@
 package com.zhang.ivan.imp2exp.util;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,7 +51,7 @@ public class ExcelReader {
 			 * 导入表格的时候为标题头和列项目
 			 */
 			int rowSize = sheet.getLastRowNum() - 1;
-			int columnSize = sheet.getRow(2).getPhysicalNumberOfCells();
+			int columnSize = sheet.getRow(1).getPhysicalNumberOfCells();
 			DyadicArray<String> dyadicArray = new DyadicArray<String>(rowSize, columnSize);
 
 			for (int i = 0; i <= rowSize - 1; i++) {
