@@ -1,5 +1,6 @@
 package com.zhang.ivan.imp2exp.util;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +28,8 @@ public class ExcelReader {
 		this.wb = wb;
 	}
 
-	public Map<Integer, DyadicArray<String>> readExcel(ExcelAppContext excelAppContext) {
+	public Map<Integer, DyadicArray<String>> readExcel(
+			ExcelAppContext excelAppContext) {
 		Map<String, BatchImportInfoVO> map = excelAppContext.getMap();
 		Set<String> set = map.keySet();
 		BatchImportInfoVO batchImportInfoVO = null;
@@ -52,7 +54,8 @@ public class ExcelReader {
 			 */
 			int rowSize = sheet.getLastRowNum() - 1;
 			int columnSize = sheet.getRow(1).getPhysicalNumberOfCells();
-			DyadicArray<String> dyadicArray = new DyadicArray<String>(rowSize, columnSize);
+			DyadicArray<String> dyadicArray = new DyadicArray<String>(rowSize,
+					columnSize);
 
 			for (int i = 0; i <= rowSize - 1; i++) {
 				row = sheet.getRow(i + 2);
@@ -61,7 +64,9 @@ public class ExcelReader {
 					if (row == null) {
 						dyadicArray.set(i, j, null);
 					} else {
-						dyadicArray.set(i, j, getCellFormatValue(row.getCell((short) j)).trim());
+						dyadicArray.set(i, j,
+								getCellFormatValue(row.getCell((short) j))
+										.trim());
 					}
 
 					j++;
@@ -131,7 +136,7 @@ public class ExcelReader {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					cellvalue = sdf.format(date);
 				} else {
-					cellvalue = String.valueOf(cell.getNumericCellValue());
+					cellvalue = this.doubleToString(cell.getNumericCellValue());
 				}
 				break;
 			}
@@ -147,4 +152,13 @@ public class ExcelReader {
 		return cellvalue;
 
 	}
+
+	 public String doubleToString(double d)  
+	    {  
+	        String i = DecimalFormat.getInstance().format(d);  
+	        String result = i.replaceAll(",", "");  
+	        return result;  
+	  
+	    } 
+
 }
