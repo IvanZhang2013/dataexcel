@@ -32,6 +32,9 @@ public class AresService {
 			ExcelAppContext excelAppContext) throws Exception {
 		List<ImpErrorInfo> impErrorInfos = new ArrayList<ImpErrorInfo>();
 		Map<String, List<DataCheckBean>> map = excelCheckContext.getCheckMap();
+		if(map==null){
+			return null;
+		}
 		Set<String> set = map.keySet();
 
 		for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {

@@ -34,6 +34,9 @@ public class MinervaService {
 	public static List<ImpErrorInfo> minervaMaceService(ExcelCheckContext excelCheckContext,
 			ExcelAppContext excelAppContext) throws Exception {
 		Map<String, List<String>> paramMap = excelAppContext.getParamStr();
+		if(paramMap==null){
+			return null;
+		}
 		Set<String> paramset = paramMap.keySet();
 		List<ImpErrorInfo> impErrorInfos = new ArrayList<ImpErrorInfo>();
 		Connection connection = null;
@@ -113,7 +116,7 @@ public class MinervaService {
 						if (s > 0) {
 							dyadicArrayData.set(xpath + j2, j, dyadicArray.get(j2, s - 1));
 						} else if (s == 0) {
-							dyadicArrayData.set(xpath + j2, j, abstractDataMath.math(dyadicArray.getRow(j2)));
+							dyadicArrayData.set(xpath + j2, j, abstractDataMath.math(dyadicArray.getRow(j2),j2));
 						}
 					}
 				}

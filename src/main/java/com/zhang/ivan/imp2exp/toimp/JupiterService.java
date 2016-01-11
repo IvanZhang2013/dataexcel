@@ -37,7 +37,7 @@ public class JupiterService {
 		// 校验服务
 		List<ImpErrorInfo> list = AresService.aresPretextService(excelCheckContext, excelAppContext);
 
-		if (list.size() > 0) {
+		if (list!=null&&list.size() > 0) {
 			ExcelResult excelResult = new ExcelResult();
 			excelResult.setStatus(false);
 			excelResult.setListError(list);
@@ -58,7 +58,7 @@ public class JupiterService {
 		// 数据块生成后进行数据逻辑的业务运算 //业务逻辑还没处理
 		List<ImpErrorInfo> list2 = MinervaService.minervaMaceService(excelCheckContext, excelAppContext);
 
-		if (list.size() > 0) {
+		if (list !=null && list.size() > 0) {
 			ExcelResult excelResult = new ExcelResult();
 			excelResult.setStatus(false);
 			excelResult.setListError(list2);
