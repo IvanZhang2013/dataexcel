@@ -289,7 +289,7 @@ public class XMLUtils {
 		ExcelAppContext excelAppContext = new ExcelAppContext();
 		Map<String, BatchImportInfoVO> mapTable = doc2Table(document);
 		Map<String, FileldInfoVO> mapFile = doc2Fileld(document);
-		Map<String, ProcBean> procMap = new HashMap<String, ProcBean>();
+		Map<String, ProcBean> procMap = doc2procdure(document);
 		excelAppContext.setFileMap(mapFile);
 		Set<String> set = mapTable.keySet();
 		for (Iterator<String> iterator = set.iterator(); iterator.hasNext();) {

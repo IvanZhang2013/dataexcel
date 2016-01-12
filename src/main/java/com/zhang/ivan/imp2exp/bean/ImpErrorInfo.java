@@ -1,12 +1,14 @@
 package com.zhang.ivan.imp2exp.bean;
 
-public  class ImpErrorInfo {
+public class ImpErrorInfo {
 
 	private int id;
 
 	private int rowIndex;
 
 	private String errorInfo;
+
+	private String errorCode;
 
 	public int getId() {
 		return id;
@@ -30,6 +32,14 @@ public  class ImpErrorInfo {
 
 	public void setErrorInfo(String errorInfo) {
 		this.errorInfo = errorInfo;
+	}
+
+	public String getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
 	}
 
 }

@@ -40,8 +40,18 @@ public class ExcelAppContext {
 	 */
 	protected Map<String, List<String>> paramStr;
 
+	protected Map<String, Object> inputParams;
+
 	public Map<String, List<String>> getParamStr() {
 		return paramStr;
+	}
+
+	public Map<String, Object> getInputParams() {
+		return inputParams;
+	}
+
+	public void setInputParams(Map<String, Object> inputParams) {
+		this.inputParams = inputParams;
 	}
 
 	public void setParamStr(Map<String, List<String>> paramStr) {
