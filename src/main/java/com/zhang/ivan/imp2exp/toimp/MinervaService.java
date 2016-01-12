@@ -34,7 +34,7 @@ public class MinervaService {
 	public static List<ImpErrorInfo> minervaMaceService(ExcelCheckContext excelCheckContext,
 			ExcelAppContext excelAppContext) throws Exception {
 		Map<String, List<String>> paramMap = excelAppContext.getParamStr();
-		if(paramMap==null){
+		if (paramMap == null) {
 			return null;
 		}
 		Set<String> paramset = paramMap.keySet();
@@ -46,25 +46,23 @@ public class MinervaService {
 			try {
 				connection = excelAppContext.getBaseDataConnection().getDataSource().getConnection();
 				callableStatement = connection
-						.prepareCall(excelAppContext.getMap().get("str").getProcBean().getProcText());
+						.prepareCall(excelAppContext.getMap().get(str).getProcBean().getProcText());
 				List<String> list = paramMap.get(str);
-				for (int i = 0; i < list.size() - 2; i++) {
+				for (int i = 0; i < list.size(); i++) {
 					callableStatement.setString(i + 1, list.get(i));
 				}
-				callableStatement.registerOutParameter(list.size() - 1, Types.VARCHAR);
-				callableStatement.registerOutParameter(list.size(), Types.VARCHAR);
+				callableStatement.registerOutParameter(list.size() + 1, Types.VARCHAR);
+				callableStatement.registerOutParameter(list.size() + 2, Types.VARCHAR);
 				callableStatement.executeUpdate();
 
-				String status = callableStatement.getString(list.size() - 1);
-				String error = callableStatement.getString(list.size());
-				if (status.trim().equals("0")) {
-					throw new DataExcelException("存储过程执行失败！");
-				} else {
-					ImpErrorInfo impErrorInfo = new ImpErrorInfo();
-					impErrorInfo.setErrorInfo(error);
-					impErrorInfos.add(impErrorInfo);
-				}
+				String status = callableStatement.getString(list.size() + 1);
+				String error = callableStatement.getString(list.size() + 2);
+				ImpErrorInfo impErrorInfo = new ImpErrorInfo();
+				impErrorInfo.setErrorCode(status);
+				impErrorInfo.setErrorInfo(error);
+				impErrorInfos.add(impErrorInfo);
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new DataExcelException("存储过程执行失败");
 			} finally {
 				if (callableStatement != null) {
@@ -116,7 +114,7 @@ public class MinervaService {
 						if (s > 0) {
 							dyadicArrayData.set(xpath + j2, j, dyadicArray.get(j2, s - 1));
 						} else if (s == 0) {
-							dyadicArrayData.set(xpath + j2, j, abstractDataMath.math(dyadicArray.getRow(j2),j2));
+							dyadicArrayData.set(xpath + j2, j, abstractDataMath.math(dyadicArray.getRow(j2), j2));
 						}
 					}
 				}
@@ -145,6 +143,7 @@ public class MinervaService {
 			if (obj instanceof AbstractDataMath) {
 				abstractDataMath = (AbstractDataMath) obj;
 				abstractDataMath.setBaseDataConnection(excelAppContext.getBaseDataConnection());
+				abstractDataMath.setInputParams(excelAppContext.getInputParams());
 			} else {
 				throw new Exception("公示定义类的类型错误！");
 			}

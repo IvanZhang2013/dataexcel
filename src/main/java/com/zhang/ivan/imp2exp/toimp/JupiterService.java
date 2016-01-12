@@ -19,7 +19,7 @@ import com.zhang.ivan.imp2exp.util.ExcelReader;
 public class JupiterService {
 	public static ExcelResult jupiterLanceService(Workbook workbook, ExcelAppContext excelAppContext,
 			ExcelCheckContext excelCheckContext) throws Exception {
-
+		ExcelResult excelResult = new ExcelResult();
 		ExcelReader excelReader = new ExcelReader(workbook);
 		Map<Integer, DyadicArray<String>> dyadicArrayMap = excelReader.readExcel(excelAppContext);
 		excelCheckContext.setDyadicArray(dyadicArrayMap);
@@ -37,8 +37,7 @@ public class JupiterService {
 		// 校验服务
 		List<ImpErrorInfo> list = AresService.aresPretextService(excelCheckContext, excelAppContext);
 
-		if (list!=null&&list.size() > 0) {
-			ExcelResult excelResult = new ExcelResult();
+		if (list != null && list.size() > 0) {
 			excelResult.setStatus(false);
 			excelResult.setListError(list);
 			excelResult.setIndex(1);
@@ -48,7 +47,6 @@ public class JupiterService {
 		boolean status = AresService.aresSabreService(excelAppContext);
 
 		if (!status) {
-			ExcelResult excelResult = new ExcelResult();
 			excelResult.setStatus(false);
 			excelResult.setListError(list);
 			excelResult.setIndex(2);
@@ -58,16 +56,9 @@ public class JupiterService {
 		// 数据块生成后进行数据逻辑的业务运算 //业务逻辑还没处理
 		List<ImpErrorInfo> list2 = MinervaService.minervaMaceService(excelCheckContext, excelAppContext);
 
-		if (list !=null && list.size() > 0) {
-			ExcelResult excelResult = new ExcelResult();
-			excelResult.setStatus(false);
-			excelResult.setListError(list2);
-			excelResult.setIndex(3);
-			return excelResult;
-		}
-
-		ExcelResult excelResult = new ExcelResult();
 		excelResult.setStatus(true);
+		excelResult.setListError(list2);
+		excelResult.setIndex(3);
 		return excelResult;
 
 	}
