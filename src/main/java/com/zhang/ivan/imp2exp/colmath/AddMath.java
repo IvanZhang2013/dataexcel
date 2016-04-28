@@ -1,4 +1,4 @@
-package com.zhang.ivan.imp2exp.col.math;
+package com.zhang.ivan.imp2exp.colmath;
 
 public class AddMath extends  AbstractDataMath {
 

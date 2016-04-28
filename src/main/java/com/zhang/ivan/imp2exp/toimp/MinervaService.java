@@ -16,7 +16,7 @@ import com.zhang.ivan.imp2exp.bean.FileldInfoVO;
 import com.zhang.ivan.imp2exp.bean.ImpErrorInfo;
 import com.zhang.ivan.imp2exp.bean.TableFieldInfoVO;
 import com.zhang.ivan.imp2exp.check.bean.ExcelCheckContext;
-import com.zhang.ivan.imp2exp.col.math.AbstractDataMath;
+import com.zhang.ivan.imp2exp.colmath.AbstractDataMath;
 import com.zhang.ivan.imp2exp.common.DataExcelException;
 import com.zhang.ivan.imp2exp.context.ExcelAppContext;
 import com.zhang.ivan.imp2exp.util.DyadicArray;
