@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/zhang/ivan/imp2exp/col/math/AbstractDataMath.java
 package com.zhang.ivan.imp2exp.col.math;
-=======
-package com.zhang.ivan.imp2exp.colmath;
->>>>>>> master:src/main/java/com/zhang/ivan/imp2exp/colmath/AbstractDataMath.java
 
 import java.util.Map;
 
